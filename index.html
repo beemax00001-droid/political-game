@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>جمهوری مسخره‌ها</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="noise"></div>
+
+    <header class="topbar">
+
+        <div class="logo">
+            <span>◈</span>
+            جمهوری مسخره‌ها
+        </div>
+
+        <div class="online">
+            <i></i>
+            ONLINE
+        </div>
+
+    </header>
+
+
+    <main class="app">
+
+        <section class="hero">
+
+            <div class="eyebrow">
+                <span></span>
+                بازی استراتژیک سیاسی دو نفره
+            </div>
+
+            <h1>
+                قدرت را
+                <strong>مسخره کن.</strong>
+            </h1>
+
+            <p>
+                مذاکره کن، بلوف بزن، تصمیم‌های عجیب بگیر
+                و کاری کن رقیبت از سیاستت دیوانه شود.
+            </p>
+
+        </section>
+
+
+        <section class="game-card">
+
+            <div class="card-header">
+
+                <div>
+                    <small>NEW GAME</small>
+                    <h2>شروع یک بحران جدید</h2>
+                </div>
+
+                <div class="round">
+                    01
+                </div>
+
+            </div>
+
+
+            <button class="game-btn primary" onclick="createRoom()">
+
+                <div class="icon">♜</div>
+
+                <div class="btn-text">
+                    <strong>ساخت اتاق</strong>
+                    <span>تو میزبان بازی خواهی بود</span>
+                </div>
+
+                <b>←</b>
+
+            </button>
+
+
+            <button class="game-btn secondary" onclick="showJoin()">
+
+                <div class="icon">♟</div>
+
+                <div class="btn-text">
+                    <strong>ورود به اتاق</strong>
+                    <span>کد بازی دوستت را وارد کن</span>
+                </div>
+
+                <b>←</b>
+
+            </button>
+
+        </section>
+
+
+        <section id="joinBox" class="panel hidden">
+
+            <div class="panel-title">
+                <span>♟</span>
+                ورود به اتاق
+            </div>
+
+            <p>
+                کد شش‌رقمی اتاق را وارد کن.
+            </p>
+
+            <input
+                id="roomCode"
+                type="text"
+                maxlength="6"
+                placeholder="A7K92P"
+                autocomplete="off"
+            >
+
+            <button class="confirm" onclick="joinRoom()">
+                ورود به بازی
+            </button>
+
+            <button class="cancel" onclick="hideJoin()">
+                انصراف
+            </button>
+
+        </section>
+
+
+        <section id="roomBox" class="panel room-panel hidden">
+
+            <div class="room-symbol">
+                ♜
+            </div>
+
+            <div class="panel-title center">
+                اتاق آماده است
+            </div>
+
+            <p>
+                این کد را برای بازیکن دوم بفرست:
+            </p>
+
+            <div id="generatedCode" class="room-code">
+                ------
+            </div>
+
+            <button class="confirm" onclick="copyCode()">
+                کپی کد اتاق
+            </button>
+
+            <div class="waiting">
+                <i></i>
+                منتظر ورود بازیکن دوم...
+            </div>
+
+        </section>
+
+
+        <section class="features">
+
+            <div>
+                <span>02</span>
+                بازیکن
+            </div>
+
+            <div>
+                <span>∞</span>
+                تصمیم سیاسی
+            </div>
+
+            <div>
+                <span>VS</span>
+                رقابت
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <span>REPUBLIC OF ABSURDITY</span>
+
+        <span>نسخه آزمایشی 0.2</span>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="game.js"></script>
+
+</body>
+
+</html>
