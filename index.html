@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="description"
+        content="جمهوری مسخره‌ها؛ یک بازی سیاسی، طنز و تصمیم‌محور"
+    >
+
+    <meta name="theme-color" content="#080808">
+
+    <title>جمهوری مسخره‌ها</title>
+
+    <link rel="stylesheet" href="style.css?v=20260908">
+</head>
+
+<body>
+
+<!-- ==================================================
+     HOME
+================================================== -->
+
+<section id="homeScreen" class="screen active">
+
+    <div class="logo">🏛️</div>
+
+    <h1>جمهوری مسخره‌ها</h1>
+
+    <p class="subtitle">
+        یک کشور بساز.<br>
+        تصمیم بگیر.<br>
+        عواقبش را تحمل کن.
+    </p>
+
+    <div class="menu-buttons">
+
+        <button
+            class="primary"
+            type="button"
+            onclick="showCreateRoom()"
+        >
+            ➕ ساخت اتاق
+        </button>
+
+        <button
+            class="secondary"
+            type="button"
+            onclick="showJoinRoom()"
+        >
+            🚪 ورود به اتاق
+        </button>
+
+    </div>
+
+    <div
+        id="connectionStatus"
+        class="connection"
+    >
+        ● در حال اتصال...
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CREATE ROOM
+================================================== -->
+
+<section id="createScreen" class="screen">
+
+    <div class="top-title">
+        <span>🏠</span>
+        ساخت اتاق
+    </div>
+
+    <div class="room-card">
+
+        <small>کد اتاق شما</small>
+
+        <div
+            id="roomCodeDisplay"
+            class="room-code"
+        >
+            ------
+        </div>
+
+        <button
+            class="copy-button"
+            type="button"
+            onclick="copyRoomCode()"
+        >
+            📋 کپی کد
+        </button>
+
+    </div>
+
+    <div class="players-card">
+
+        <div class="player-row">
+            <span>🟢 بازیکن ۱</span>
+            <strong>شما</strong>
+        </div>
+
+        <div
+            id="hostPlayer2"
+            class="player-row waiting"
+        >
+            <span>⚪ بازیکن ۲</span>
+            <strong>منتظر...</strong>
+        </div>
+
+    </div>
+
+    <div
+        id="hostStatus"
+        class="status-box"
+    >
+        در حال ساخت اتاق...
+    </div>
+
+    <button
+        class="secondary"
+        type="button"
+        onclick="leaveRoom()"
+    >
+        ← خروج
+    </button>
+
+</section>
+
+
+<!-- ==================================================
+     JOIN ROOM
+================================================== -->
+
+<section id="joinScreen" class="screen">
+
+    <div class="top-title">
+        <span>🚪</span>
+        ورود به اتاق
+    </div>
+
+    <p>
+        کد ۶ کاراکتری اتاق را وارد کن
+    </p>
+
+    <input
+        id="roomCodeInput"
+        type="text"
+        maxlength="6"
+        minlength="6"
+        autocomplete="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        inputmode="text"
+        placeholder="ABC123"
+        oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '')"
+    >
+
+    <button
+        class="primary"
+        type="button"
+        onclick="joinRoom()"
+    >
+        ورود به اتاق
+    </button>
+
+    <div
+        id="joinStatus"
+        class="status-box"
+    ></div>
+
+    <button
+        class="secondary"
+        type="button"
+        onclick="backHome()"
+    >
+        ← برگشت
+    </button>
+
+</section>
+
+
+<!-- ==================================================
+     LOBBY
+================================================== -->
+
+<section id="lobbyScreen" class="screen">
+
+    <div class="top-title">
+        <span>🎮</span>
+        اتاق بازی
+    </div>
+
+    <div class="mini-room-code">
+        اتاق:
+        <strong id="lobbyRoomCode">------</strong>
+    </div>
+
+    <div class="players-card">
+
+        <div
+            id="lobbyPlayer1"
+            class="player-row"
+        >
+            <span>🟢 بازیکن ۱</span>
+            <strong>متصل</strong>
+        </div>
+
+        <div
+            id="lobbyPlayer2"
+            class="player-row waiting"
+        >
+            <span>⚪ بازیکن ۲</span>
+            <strong>منتظر...</strong>
+        </div>
+
+    </div>
+
+    <div
+        id="lobbyStatus"
+        class="status-box"
+    >
+        در حال آماده‌سازی...
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     GAME
+================================================== -->
+
+<section id="gameScreen" class="game-screen">
+
+    <header class="game-header">
+
+        <div>
+            <small>جمهوری مسخره‌ها</small>
+
+            <h2 id="countryName">
+                کشور شما
+            </h2>
+        </div>
+
+        <div class="turn-box">
+            دور
+            <strong id="turnNumber">1</strong>
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         STATS
+    ================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat">
+            <span>💰</span>
+            <small>پول</small>
+            <strong id="moneyStat">100</strong>
+        </div>
+
+        <div class="stat">
+            <span>⚡</span>
+            <small>برق</small>
+            <strong id="electricityStat">80</strong>
+        </div>
+
+        <div class="stat">
+            <span>📈</span>
+            <small>اقتصاد</small>
+            <strong id="economyStat">70</strong>
+        </div>
+
+        <div class="stat">
+            <span>👥</span>
+            <small>محبوبیت</small>
+            <strong id="popularityStat">60</strong>
+        </div>
+
+        <div class="stat">
+            <span>🛡️</span>
+            <small>امنیت</small>
+            <strong id="securityStat">70</strong>
+        </div>
+
+        <div class="stat">
+            <span>🌍</span>
+            <small>روابط</small>
+            <strong id="relationsStat">50</strong>
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         EVENT
+    ================================================== -->
+
+    <div
+        id="eventCard"
+        class="event-card"
+    >
+
+        <div
+            id="eventIcon"
+            class="event-icon"
+        >
+            🎬
+        </div>
+
+        <div
+            id="eventCategory"
+            class="event-category"
+        >
+            اتفاق
+        </div>
+
+        <h1 id="eventTitle">
+            آماده‌ای؟
+        </h1>
+
+        <p id="eventDescription">
+            کارگردان بازی در حال آماده‌سازی اولین اتفاق است...
+        </p>
+
+        <div
+            id="eventChoices"
+            class="choices"
+        ></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         AI DIRECTOR
+    ================================================== -->
+
+    <div class="director-box">
+
+        <div class="director-title">
+            🤖 کارگردان هوشمند
+        </div>
+
+        <p id="directorMessage">
+            وضعیت کشور در حال بررسی است...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     RESULT
+================================================== -->
+
+<section id="resultScreen" class="screen">
+
+    <div class="logo">🏆</div>
+
+    <h1 id="resultTitle">
+        پایان بازی
+    </h1>
+
+    <p id="resultDescription"></p>
+
+    <button
+        class="primary"
+        type="button"
+        onclick="location.reload()"
+    >
+        🔄 بازی دوباره
+    </button>
+
+</section>
+
+
+<!-- ==================================================
+     SUPABASE
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- ==================================================
+     AI
+     IMPORTANT:
+     ai.js MUST load before game.js
+================================================== -->
+
+<script src="ai.js?v=20260908"></script>
+
+
+<!-- ==================================================
+     GAME ENGINE
+================================================== -->
+
+<script src="game.js?v=20260908"></script>
+
+</body>
+</html>
