@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#080A0F">
+
+    <title>Republic of Absurdity</title>
+
+    <!-- =====================================================
+         MAIN STYLES
+    ====================================================== -->
+    <link rel="stylesheet" href="style.css?v=5.0">
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- =====================================================
+         THREE.JS
+         همه فایل‌های Three.js باید از یک نسخه باشند.
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+</head>
+
+<body>
+
+<!-- =========================================================
+     GLOBAL BACKGROUND
+========================================================= -->
+
+<div id="globalBackground">
+    <div class="background-grid"></div>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+</div>
+
+
+<!-- =========================================================
+     BOOT SCREEN
+========================================================= -->
+
+<section id="bootScreen" class="screen boot-screen active">
+
+    <div class="boot-logo">
+        <div class="boot-symbol">R</div>
+
+        <div class="boot-title">
+            REPUBLIC
+            <span>OF ABSURDITY</span>
+        </div>
+    </div>
+
+    <div class="boot-loader">
+        <div id="bootProgress"></div>
+    </div>
+
+    <div id="bootText">
+        در حال آماده‌سازی جمهوری...
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN MENU
+========================================================= -->
+
+<section id="mainMenu" class="screen main-menu">
+
+    <!-- 3D INTRO SCENE -->
+    <div id="intro3dScene" class="intro-3d-scene"></div>
+
+    <!-- cinematic dark overlay -->
+    <div class="intro-overlay"></div>
+
+    <!-- top information -->
+    <header class="main-menu-header">
+
+        <div class="brand-mini">
+            <span class="brand-dot"></span>
+
+            <div>
+                <strong>REPUBLIC OF ABSURDITY</strong>
+                <small>POLITICAL SIMULATION</small>
+            </div>
+        </div>
+
+        <div class="version-label">
+            v5.0
+        </div>
+
+    </header>
+
+
+    <!-- main title -->
+
+    <div class="main-menu-content">
+
+        <div class="eyebrow">
+            WELCOME, PRESIDENT
+        </div>
+
+        <h1 class="game-logo">
+            جمهوری
+            <span>مسخره‌ها</span>
+        </h1>
+
+        <p class="game-subtitle">
+            جایی که تصمیم‌های شما می‌توانند جهان را بهتر کنند...
+            یا اوضاع را خیلی عجیب‌تر.
+        </p>
+
+
+        <!-- menu buttons -->
+
+        <div class="main-menu-buttons">
+
+            <button
+                id="startGameBtn"
+                class="main-action-button primary-action"
+                type="button"
+            >
+                <span class="button-icon">▶</span>
+
+                <span>
+                    <strong>شروع ریاست‌جمهوری</strong>
+                    <small>START PRESIDENCY</small>
+                </span>
+            </button>
+
+
+            <button
+                id="joinGameBtn"
+                class="main-action-button"
+                type="button"
+            >
+                <span class="button-icon">⇄</span>
+
+                <span>
+                    <strong>ورود به اتاق</strong>
+                    <small>JOIN A ROOM</small>
+                </span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- bottom status -->
+
+    <div class="main-menu-bottom">
+
+        <div class="online-status">
+            <span class="status-light"></span>
+            سیستم آنلاین
+        </div>
+
+        <div class="creator-credit">
+            سازنده: <strong>beemax_1</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SETUP SCREEN
+========================================================= -->
+
+<section id="setupScreen" class="screen setup-screen">
+
+    <div class="setup-background"></div>
+
+    <div class="setup-container">
+
+        <div class="setup-header">
+
+            <div class="setup-number">
+                01
+            </div>
+
+            <div>
+                <div class="setup-eyebrow">
+                    PRESIDENTIAL REGISTRATION
+                </div>
+
+                <h2>
+                    رئیس‌جمهور خود را معرفی کنید
+                </h2>
+
+                <p>
+                    کشور، شرایط و هویت سیاسی خود را انتخاب کنید.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="setup-form">
+
+            <!-- leader name -->
+
+            <div class="form-group">
+
+                <label for="leaderName">
+                    نام رئیس‌جمهور
+                </label>
+
+                <input
+                    id="leaderName"
+                    type="text"
+                    maxlength="30"
+                    autocomplete="off"
+                    placeholder="مثلاً رئیس بزرگ"
+                >
+
+            </div>
+
+
+            <!-- country -->
+
+            <div class="form-group">
+
+                <label for="countrySelect">
+                    کشور
+                </label>
+
+                <select id="countrySelect">
+
+                    <option value="">
+                        انتخاب کشور...
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- geography -->
+
+            <div class="form-group">
+
+                <label for="geographySelect">
+                    شرایط جغرافیایی
+                </label>
+
+                <select id="geographySelect">
+
+                    <option value="">
+                        ابتدا کشور را انتخاب کنید...
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="setup-preview">
+
+            <div class="country-preview-icon" id="countryPreviewIcon">
+                🌍
+            </div>
+
+            <div class="country-preview-info">
+
+                <span>
+                    کشور منتخب
+                </span>
+
+                <strong id="countryPreviewName">
+                    هنوز انتخاب نشده
+                </strong>
+
+                <small id="countryPreviewDescription">
+                    کشور خود را انتخاب کنید.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="setup-actions">
+
+            <button
+                id="backToMenuBtn"
+                class="secondary-button"
+                type="button"
+            >
+                ← بازگشت
+            </button>
+
+            <button
+                id="confirmSetupBtn"
+                class="primary-button"
+                type="button"
+            >
+                ساخت جمهوری
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JOIN SCREEN
+========================================================= -->
+
+<section id="joinScreen" class="screen join-screen">
+
+    <div class="join-container">
+
+        <div class="join-icon">
+            ⇄
+        </div>
+
+        <div class="setup-eyebrow">
+            MULTIPLAYER
+        </div>
+
+        <h2>
+            ورود به اتاق ریاست‌جمهوری
+        </h2>
+
+        <p>
+            کد اتاقی که دوستت ساخته را وارد کن.
+        </p>
+
+
+        <div class="room-code-input-wrapper">
+
+            <input
+                id="roomCodeInput"
+                type="text"
+                maxlength="6"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="ABC123"
+            >
+
+        </div>
+
+
+        <div class="join-actions">
+
+            <button
+                id="backFromJoinBtn"
+                class="secondary-button"
+                type="button"
+            >
+                ← بازگشت
+            </button>
+
+            <button
+                id="joinConfirmBtn"
+                class="primary-button"
+                type="button"
+            >
+                ورود به اتاق
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LOBBY SCREEN
+========================================================= -->
+
+<section id="lobbyScreen" class="screen lobby-screen">
+
+    <div class="lobby-background"></div>
+
+    <div class="lobby-container">
+
+        <header class="lobby-header">
+
+            <div>
+
+                <div class="setup-eyebrow">
+                    PRESIDENTIAL SUMMIT
+                </div>
+
+                <h2>
+                    اتاق شورای جهانی
+                </h2>
+
+            </div>
+
+
+            <div class="room-code-box">
+
+                <span>
+                    ROOM CODE
+                </span>
+
+                <strong id="roomCodeDisplay">
+                    ------
+                </strong>
+
+                <button
+                    id="copyRoomBtn"
+                    type="button"
+                    title="کپی کد اتاق"
+                >
+                    ⧉
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="lobby-grid">
+
+            <!-- players -->
+
+            <div class="panel players-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-kicker">
+                            PARTICIPANTS
+                        </span>
+
+                        <h3>
+                            رؤسای حاضر
+                        </h3>
+                    </div>
+
+                    <div
+                        id="playerCount"
+                        class="player-count"
+                    >
+                        0/8
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="playersList"
+                    class="players-list"
+                >
+                    <!-- players injected by game.js -->
+                </div>
+
+            </div>
+
+
+            <!-- briefing -->
+
+            <div class="panel briefing-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-kicker">
+                            MISSION BRIEFING
+                        </span>
+
+                        <h3>
+                            وضعیت جلسه
+                        </h3>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="lobbyStatus"
+                    class="lobby-status"
+                >
+                    در انتظار ورود بازیکنان...
+                </div>
+
+
+                <div class="lobby-rules">
+
+                    <div class="rule">
+                        <span>01</span>
+                        هر رئیس یک کشور را مدیریت می‌کند.
+                    </div>
+
+                    <div class="rule">
+                        <span>02</span>
+                        Director اتفاقات جهان را می‌سازد.
+                    </div>
+
+                    <div class="rule">
+                        <span>03</span>
+                        هر تصمیم پیامدهای خودش را دارد.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="lobby-footer">
+
+            <button
+                id="leaveLobbyBtn"
+                class="secondary-button"
+                type="button"
+            >
+                خروج
+            </button>
+
+            <button
+                id="startGameBtn"
+                class="primary-button"
+                type="button"
+            >
+                شروع بازی
+                <span>▶</span>
+            </button>
+
+        </footer>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GAME SCREEN
+========================================================= -->
+
+<section id="gameScreen" class="screen game-screen">
+
+    <!-- 3D OFFICE -->
+
+    <div
+        id="office3d"
+        class="office-3d"
+    ></div>
+
+
+    <!-- cinematic vignette -->
+
+    <div class="game-vignette"></div>
+
+
+    <!-- =====================================================
+         TOP HUD
+    ====================================================== -->
+
+    <header class="game-topbar">
+
+        <div class="game-brand">
+
+            <span class="brand-dot"></span>
+
+            <div>
+                <strong>
+                    REPUBLIC OF ABSURDITY
+                </strong>
+
+                <small>
+                    PRESIDENTIAL OFFICE
+                </small>
+            </div>
+
+        </div>
+
+
+        <div
+            id="turnStatus"
+            class="turn-status"
+        >
+            در انتظار...
+        </div>
+
+
+        <div class="game-turn">
+
+            <span>
+                TURN
+            </span>
+
+            <strong id="turnNumber">
+                01
+            </strong>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PRESIDENT STATS
+    ====================================================== -->
+
+    <aside
+        id="statsPanel"
+        class="game-panel stats-panel"
+    >
+
+        <div class="panel-title">
+            وضعیت جمهوری
+        </div>
+
+
+        <div class="stat-item">
+
+            <div class="stat-label">
+                💰 اقتصاد
+            </div>
+
+            <div class="stat-bar">
+                <div
+                    id="economyBar"
+                    class="stat-fill economy"
+                ></div>
+            </div>
+
+            <strong id="economyValue">
+                50
+            </strong>
+
+        </div>
+
+
+        <div class="stat-item">
+
+            <div class="stat-label">
+                ⚡ انرژی
+            </div>
+
+            <div class="stat-bar">
+                <div
+                    id="energyBar"
+                    class="stat-fill energy"
+                ></div>
+            </div>
+
+            <strong id="energyValue">
+                50
+            </strong>
+
+        </div>
+
+
+        <div class="stat-item">
+
+            <div class="stat-label">
+                ❤️ محبوبیت
+            </div>
+
+            <div class="stat-bar">
+                <div
+                    id="popularityBar"
+                    class="stat-fill popularity"
+                ></div>
+            </div>
+
+            <strong id="popularityValue">
+                50
+            </strong>
+
+        </div>
+
+
+        <div class="stat-item">
+
+            <div class="stat-label">
+                🛡️ ثبات
+            </div>
+
+            <div class="stat-bar">
+                <div
+                    id="stabilityBar"
+                    class="stat-fill stability"
+                ></div>
+            </div>
+
+            <strong id="stabilityValue">
+                50
+            </strong>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         WORLD STATUS
+    ====================================================== -->
+
+    <aside
+        id="worldStatusPanel"
+        class="game-panel world-status-panel"
+    >
+
+        <div class="panel-title">
+            وضعیت جهان
+        </div>
+
+        <div id="worldStatus">
+            پایدار
+        </div>
+
+        <div class="world-metrics">
+
+            <div>
+                <span>تنش جهانی</span>
+                <strong id="globalTension">
+                    20
+                </strong>
+            </div>
+
+            <div>
+                <span>بحران‌ها</span>
+                <strong id="crisisCount">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         NEWS TICKER
+    ====================================================== -->
+
+    <div
+        id="newsPanel"
+        class="news-panel"
+    >
+
+        <div class="news-live">
+            LIVE
+        </div>
+
+        <div
+            id="newsText"
+            class="news-text"
+        >
+            جمهوری در آرامش نسبی به سر می‌برد...
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         EVENT DOSSIER
+    ====================================================== -->
+
+    <div
+        id="eventDossier"
+        class="event-dossier"
+    >
+
+        <div class="event-dossier-header">
+
+            <div>
+
+                <span
+                    id="eventCategory"
+                    class="event-category"
+                >
+                    BREAKING
+                </span>
+
+                <h2 id="eventTitle">
+                    در انتظار رویداد...
+                </h2>
+
+            </div>
+
+            <div
+                id="eventSeverity"
+                class="event-severity"
+            >
+                NORMAL
+            </div>
+
+        </div>
+
+
+        <p id="eventDescription">
+            Director در حال بررسی وضعیت جهان است...
+        </p>
+
+
+        <!-- =================================================
+             DECISION CARDS
+        ================================================== -->
+
+        <div
+            id="decisionCards"
+            class="decision-cards"
+        >
+
+            <!-- generated by game.js -->
+
+        </div>
+
+
+        <!-- AI THINKING -->
+
+        <div
+            id="aiThinking"
+            class="ai-thinking hidden"
+        >
+
+            <div class="thinking-orb"></div>
+
+            <span>
+                Director در حال تحلیل پیامدها...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONSEQUENCE OVERLAY
+    ====================================================== -->
+
+    <div
+        id="consequenceOverlay"
+        class="consequence-overlay hidden"
+    >
+
+        <div class="consequence-card">
+
+            <div class="consequence-label">
+                DECISION RESULT
+            </div>
+
+            <h2 id="consequenceTitle">
+                نتیجه تصمیم
+            </h2>
+
+            <p id="consequenceStory">
+                ...
+            </p>
+
+
+            <div
+                id="consequenceEffects"
+                class="consequence-effects"
+            >
+                <!-- generated -->
+            </div>
+
+
+            <div
+                id="consequenceNews"
+                class="consequence-news"
+            >
+                <!-- generated -->
+            </div>
+
+
+            <button
+                id="closeConsequenceBtn"
+                class="primary-button"
+                type="button"
+            >
+                ادامه ریاست‌جمهوری
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     END SCREEN
+========================================================= -->
+
+<section id="endScreen" class="screen end-screen">
+
+    <div class="end-background"></div>
+
+    <div class="end-container">
+
+        <div class="end-eyebrow">
+            PRESIDENTIAL TERM COMPLETE
+        </div>
+
+        <h1>
+            پایان دوره
+        </h1>
+
+        <p>
+            تاریخ قضاوت خواهد کرد...
+        </p>
+
+
+        <div class="ranking-panel">
+
+            <div class="ranking-header">
+
+                <span>
+                    FINAL RANKING
+                </span>
+
+                <strong>
+                    رتبه‌بندی جمهوری‌ها
+                </strong>
+
+            </div>
+
+
+            <div
+                id="rankingList"
+                class="ranking-list"
+            >
+                <!-- generated by game.js -->
+            </div>
+
+        </div>
+
+
+        <button
+            id="restartGameBtn"
+            class="primary-button"
+            type="button"
+        >
+            بازگشت به منوی اصلی
+            <span>↻</span>
+        </button>
+
+
+        <div class="creator-credit end-credit">
+            سازنده: <strong>beemax_1</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TOAST SYSTEM
+========================================================= -->
+
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+
+
+<!-- =========================================================
+     LOADING OVERLAY
+========================================================= -->
+
+<div
+    id="globalLoading"
+    class="global-loading hidden"
+>
+
+    <div class="loading-orb"></div>
+
+    <div
+        id="loadingText"
+        class="loading-text"
+    >
+        در حال اتصال...
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="ai.js?v=5.0"></script>
+
+<script src="game.js?v=5.0"></script>
+
+<script src="office3d.js?v=5.0"></script>
+
+
+<!-- =========================================================
+     SAFE BOOT
+========================================================= -->
+
+<script>
+(function () {
+
+    "use strict";
+
+    window.addEventListener("error", function (event) {
+
+        console.error(
+            "[Republic of Absurdity]",
+            event.error || event.message
+        );
+
+    });
+
+    window.addEventListener(
+        "unhandledrejection",
+        function (event) {
+
+            console.error(
+                "[Republic of Absurdity] Promise error:",
+                event.reason
+            );
+
+        }
+    );
+
+})();
+</script>
+
+</body>
+</html>
