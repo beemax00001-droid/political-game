@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06070b">
+<title>جمهوری مسخره‌ها — Republic of Absurdity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="boot" class="boot"><div class="boot-noise"></div><div class="boot-orb"></div><div class="boot-title">جمهوری مسخره‌ها</div><div class="boot-en">REPUBLIC OF ABSURDITY</div><div class="boot-progress"><i></i></div></div>
+<div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loader"></div><span>در حال آماده‌سازی...</span></div>
+
+<main id="app" class="hidden">
+<section id="menu" class="screen active">
+  <div class="backdrop"><i></i><i></i><i></i></div>
+  <header class="topbar"><div class="brand"><b>ROA</b><span>50-STAGE POLITICAL SIMULATOR</span></div><button id="fxBtn" class="iconbtn">🔊</button></header>
+  <div class="menu-layout">
+    <div class="hero-copy">
+      <div class="kicker">یک کشور. هشت بازیکن. هزاران تصمیم.</div>
+      <h1>جمهوری<br><em>مسخره‌ها</em></h1>
+      <p>یک شبیه‌ساز سیاسی سینمایی؛ اقتصاد، رسانه، پارلمان، دیپلماسی، بحران، شایعه، تصمیم‌های عجیب و پیامدهایی که ممکن است چند مرحله بعد برگردند.</p>
+      <div class="hero-actions"><button id="createBtn" class="action primary">ساخت جمهوری <span>↗</span></button><button id="joinBtn" class="action">ورود به اتاق <span>⌘</span></button></div>
+      <div class="chips"><span>🤖 AI Director</span><span>🌍 Dynamic World</span><span>👥 1–8 Players</span><span>🎬 Cinematic</span></div>
+    </div>
+    <div class="hero-console">
+      <div class="console-top"><span>WORLD MONITOR</span><b>● LIVE</b></div>
+      <div class="radar"><div class="radar-sweep"></div><span class="r1"></span><span class="r2"></span><span class="r3"></span></div>
+      <div class="console-lines"><p>GLOBAL TENSION <b>20%</b></p><p>MARKET INDEX <b>50</b></p><p>WORLD ENERGY <b>50</b></p><p>DIPLOMACY <b>50</b></p></div>
+      <div class="ticker">BREAKING // THE WORLD IS WAITING FOR YOUR FIRST DECISION</div>
+    </div>
+  </div>
+</section>
+
+<section id="setup" class="screen"><div class="card wide">
+  <div class="head"><div><small>01 / IDENTITY</small><h2>جمهوری جدید</h2></div><button class="close back" data-back="menu">×</button></div>
+  <div class="form3"><label>نام رئیس‌جمهور<input id="leader" maxlength="24" placeholder="مثلاً رئیس پارسا"></label><label>کشور<select id="country"></select></label><label>جغرافیا<select id="geo"></select></label></div>
+  <div id="countryPreview" class="preview-box">کشور را انتخاب کن تا پرونده آن نمایش داده شود.</div>
+  <div class="rule"><span>حالت بازی</span><b>آنلاین + حالت محلی پشتیبان</b></div>
+  <button id="confirmSetup" class="action primary full">ساخت اتاق و ادامه</button>
+</div></section>
+
+<section id="join" class="screen"><div class="card">
+  <div class="head"><div><small>01 / ACCESS</small><h2>ورود به جمهوری</h2></div><button class="close back" data-back="menu">×</button></div>
+  <label>کد اتاق<input id="room" maxlength="8" placeholder="ROA7K2"></label>
+  <label>نام رئیس‌جمهور<input id="joinLeader" maxlength="24" placeholder="نام شما"></label>
+  <div class="form2"><label>کشور<select id="joinCountry"></select></label><label>جغرافیا<select id="joinGeo"></select></label></div>
+  <button id="confirmJoin" class="action primary full">ورود به اتاق</button>
+</div></section>
+
+<section id="lobby" class="screen"><div class="card wide">
+  <div class="head"><div><small>02 / COUNCIL ROOM</small><h2>شورای جمهوری <b id="roomTitle"></b></h2></div><button id="copyRoom" class="smallbtn">کپی کد</button></div>
+  <div class="lobby-grid">
+    <div><div class="section-title">اعضای حاضر <b id="count">1/8</b></div><div id="players" class="player-list"></div></div>
+    <div>
+      <div class="section-title">رأی‌گیری طول بازی</div>
+      <div id="stages" class="stage-grid"><button data-stage="10">10</button><button data-stage="20">20</button><button data-stage="30">30</button><button data-stage="40">40</button><button data-stage="50" class="selected">50</button></div>
+      <p id="lobbyNote" class="muted">هر بازیکن می‌تواند رأی خود را عوض کند؛ برای تست تک‌نفره، شروع مستقیم فعال است.</p>
+      <div class="vote-status" id="voteStatus">۵۰ مرحله انتخاب شده</div>
+      <button id="startBtn" class="action primary full">شروع جمهوری</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="game" class="screen">
+  <div class="world-scene"><div class="ceiling"></div><div class="window-grid"></div><div class="city"></div><div class="desk3d"></div><div class="lamp"></div><div class="flag3d"></div><div class="red-phone">☎</div><div class="screen-glow"></div></div>
+  <div class="game-ui">
+    <header class="gamebar"><div><small id="countryName">کشور</small><h2 id="leaderName">رئیس‌جمهور</h2></div><div class="stage-pill">مرحله <b id="stage">1</b><span>/</span><b id="limit">50</b><i id="turn">نوبت شما</i></div></header>
+    <div class="metric-grid">
+      <div><small>💰 بودجه</small><b id="money">0</b></div><div><small>📈 اقتصاد</small><b id="economy">0</b></div><div><small>⚡ انرژی</small><b id="energy">0</b></div><div><small>⭐ محبوبیت</small><b id="popularity">0</b></div><div><small>🛡 ثبات</small><b id="stability">0</b></div><div><small>🌐 روابط</small><b id="relations">0</b></div><div><small>🚨 تحریم</small><b id="sanctions">0</b></div><div><small>🏆 امتیاز</small><b id="score">0</b></div>
+    </div>
+    <div class="worldbar"><div><span>تنش جهانی</span><b id="tension">20</b></div><div><span>بازار</span><b id="market">50</b></div><div><span>انرژی جهان</span><b id="worldEnergy">50</b></div><div><span>دیپلماسی</span><b id="diplomacy">50</b></div></div>
+    <div id="news" class="breaking"><b>BREAKING</b><span>خبر فوری: جمهوری جدید تشکیل شد.</span></div>
+    <article class="dossier">
+      <div class="dossier-head"><div><small id="eventNo">EVENT 001</small><div id="rarity" class="rarity">NORMAL</div></div><div id="aiBadge" class="ai-badge">● DIRECTOR</div></div>
+      <h1 id="eventTitle">در حال آماده‌سازی...</h1><p id="eventDesc"></p>
+      <div id="choices" class="choices"></div>
+    </article>
+    <div id="director" class="director"><span></span><b>AI DIRECTOR</b><i>در حال تحلیل جهان...</i></div>
+  </div>
+</section>
+
+<div id="consequence" class="overlay"><div class="con-card"><div id="impact" class="impact">DECISION RECORDED</div><h2 id="conTitle">پیامد</h2><p id="conText"></p><div id="effects" class="effects"></div><div class="delay" id="delayBox"></div><button id="nextBtn" class="action primary full">ادامه به مرحله بعد</button></div></div>
+
+<section id="end" class="screen"><div class="card wide finale"><div class="finale-symbol">✦</div><small>FINAL LEGACY REPORT</small><h1 id="endTitle">میراث جمهوری</h1><p id="endText"></p><div id="ranking" class="ranking"></div><div class="legacy-grid" id="legacyGrid"></div><button id="againBtn" class="action primary full">بازگشت به منوی اصلی</button></div></section>
+</main>
+<script src="data.js"></script>
+<script src="ai.js"></script>
+<script src="realtime.js"></script>
+<script src="office3d.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

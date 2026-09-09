@@ -1,0 +1,3 @@
+Republic of Absurdity v12.0 Cinematic
+Files: index.html, style.css, data.js, ai.js, realtime.js, office3d.js, game.js, worker.js, README_FA.txt
+Lengths: {"data.js": 7562, "ai.js": 787, "realtime.js": 1363, "office3d.js": 591, "game.js": 9716}
