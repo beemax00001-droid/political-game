@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b766e">
+<meta name="description" content="ختم قرآن ۳۲ نفره">
+<title>ختم قرآن ۳۲ نفره</title>
+<style>
+*{box-sizing:border-box}html{direction:rtl}body{margin:0;background:#f4f7f7;color:#172326;font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:1100px;margin:auto;padding:14px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0 14px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:15px;background:#0b766e;color:#fff;display:grid;place-items:center;font-size:25px}
+h1{font-size:19px;margin:0}.muted{color:#708083;font-size:12px}
+.card{background:#fff;border:1px solid #e2e9e9;border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 8px 28px #123b3b0c}
+.hero{background:linear-gradient(135deg,#075e58,#11a092);color:#fff;border:0;padding:20px}.hero h2{margin:0 0 6px;font-size:22px}
+.progress{height:12px;background:#ffffff38;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#ffe09a;border-radius:99px;transition:.4s}
+.herorow{display:flex;justify-content:space-between;font-size:12px;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#fff;border:1px solid #e2e9e9;border-radius:17px;padding:14px}.stat b{font-size:24px;display:block;color:#0b766e}.stat small{color:#708083}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.input,.select{border:1px solid #d9e2e2;background:#fff;color:#172326;border-radius:12px;padding:11px;min-width:150px;flex:1}
+.btn{border:1px solid #d9e2e2;background:#fff;color:#172326;border-radius:12px;padding:10px 14px}.primary{background:#0b766e;color:#fff;border-color:#0b766e}.soft{background:#e4f5f2;color:#096b64;border-color:transparent}
+.members{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.member{border:1px solid #e2e9e9;border-radius:16px;padding:13px}
+.mtop{display:flex;align-items:center;justify-content:space-between;gap:8px}.person{display:flex;align-items:center;gap:8px;min-width:0}.avatar{width:38px;height:38px;border-radius:12px;background:#e4f5f2;color:#0b766e;display:grid;place-items:center;font-weight:bold}.person b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{font-size:10px;padding:5px 8px;border-radius:99px;background:#fff1d2;color:#876017}.badge.reading{background:#dff3f0;color:#087068}.badge.done{background:#dcf5e8;color:#16724c}
+.mini{height:8px;background:#e5ebeb;border-radius:99px;overflow:hidden;margin:10px 0}.mini span{display:block;height:100%;background:#0b9a8d;width:0}.foot{display:flex;justify-content:space-between;color:#708083;font-size:11px}
+.juzgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.juz{padding:12px 6px;border:1px solid #dfe7e7;background:#fff;border-radius:13px;color:#172326}.juz b{display:block;color:#0b766e}.juz small{color:#708083;font-size:10px}.juz.active{outline:2px solid #0b766e;background:#e8f6f3}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;z-index:10}.modal.show{display:flex}.sheet{background:#fff;width:min(620px,100%);margin:auto auto 0;border-radius:24px 24px 0 0;padding:18px}.field{margin:10px 0}.field label{display:block;font-size:12px;color:#708083;margin-bottom:5px}.field input,.field select{width:100%;padding:11px;border:1px solid #d9e2e2;border-radius:12px;background:#f7f9f9}.close{float:left;border:0;background:#e4f5f2;color:#0b766e;border-radius:10px;padding:7px 10px}
+.dark{background:#0c1517;color:#edf6f5}.dark .card,.dark .stat,.dark .member,.dark .juz,.dark .sheet,.dark .input,.dark .select,.dark .btn{background:#122124;color:#edf6f5;border-color:#263b3e}.dark .muted,.dark .small,.dark small,.dark .foot{color:#9cb0b2}.dark .mini{background:#26383b}.dark .juz.active{background:#173936}.dark .field input,.dark .field select{background:#0d1a1c;color:#edf6f5;border-color:#304448}
+#toast{position:fixed;bottom:18px;right:18px;background:#172326;color:#fff;padding:11px 14px;border-radius:12px;display:none;z-index:20;font-size:12px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.members{grid-template-columns:1fr}.juzgrid{grid-template-columns:repeat(3,1fr)}h1{font-size:16px}.wrap{padding:9px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">۞</div><div><h1>ختم قرآن ۳۲ نفره</h1><div class="muted">همراهی برای یک ختم کامل</div></div></div>
+ <button class="btn" id="theme" aria-label="حالت شب">☾</button>
+</header>
+
+<section class="card hero">
+ <h2 id="heroTitle">پیشرفت کل ختم</h2>
+ <div id="heroSub">در حال محاسبه...</div>
+ <div class="progress" style="margin-top:13px"><span id="globalProgress"></span></div>
+ <div class="herorow"><span id="globalPercent">۰٪</span><span id="globalPages">۰ از ۶۰۴ صفحه</span></div>
+</section>
+
+<section class="stats">
+ <div class="stat"><b>۳۲</b><small>عضو</small></div>
+ <div class="stat"><b id="assigned">۰</b><small>جزء انتخاب‌شده</small></div>
+ <div class="stat"><b id="finished">۰</b><small>تمام‌شده</small></div>
+ <div class="stat"><b id="pages">۰</b><small>صفحه خوانده‌شده</small></div>
+</section>
+
+<section class="card">
+ <h2>اعضا</h2>
+ <div class="actions">
+  <input class="input" id="search" placeholder="جست‌وجوی نام">
+  <select class="select" id="filter"><option value="all">همه</option><option value="reading">در حال مطالعه</option><option value="done">تمام‌شده</option><option value="none">بدون جزء</option></select>
+  <button class="btn primary" id="edit">ثبت/ویرایش پیشرفت من</button>
+ </div>
+</section>
+
+<section class="card"><h2>وضعیت ۳۲ نفر</h2><div id="members" class="members"></div></section>
+
+<section class="card">
+ <h2>انتخاب جزء</h2>
+ <p class="muted">روی جزء موردنظر بزنید؛ سپس در پنجره ثبت پیشرفت، نام و صفحات خوانده‌شده را وارد کنید.</p>
+ <div id="juzGrid" class="juzgrid"></div>
+</section>
+
+<section class="card">
+ <h2>درباره ذخیره‌سازی</h2>
+ <p class="muted">این نسخه برای GitHub Pages کاملاً استاتیک است و هیچ فایل یا سرور دیگری لازم ندارد. اطلاعات در مرورگر دستگاه ذخیره می‌شود. برای اشتراک‌گذاری زنده اطلاعات بین ۳۲ گوشی، یک پایگاه‌داده آنلاین لازم است.</p>
+</section>
+<footer class="muted" style="text-align:center;padding:12px">نسخه تک‌فایلی • مناسب GitHub Pages</footer>
+</div>
+
+<div class="modal" id="modal"><div class="sheet">
+ <button class="close" id="close">بستن ×</button><h2>ثبت پیشرفت من</h2>
+ <div class="field"><label>نام</label><input id="name" maxlength="40" placeholder="نام خود را وارد کنید"></div>
+ <div class="field"><label>جزء</label><select id="juz"></select></div>
+ <div class="field"><label>تعداد صفحات خوانده‌شده</label><input id="readPages" type="number" min="0" inputmode="numeric" value="0"></div>
+ <div class="actions"><button class="btn primary" id="save">ذخیره اطلاعات</button><button class="btn" id="remove">پاک کردن اطلاعات من</button></div>
+</div></div>
+<div id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var STORAGE='khatm-quran-32-github-pages-v2';
+var TOTAL=604;
+var pagesPerJuz=[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,24];
+var data;
+try{data=JSON.parse(localStorage.getItem(STORAGE)||'null')}catch(e){data=null}
+if(!data||!Array.isArray(data.members)||data.members.length!==32){
+ data={myId:null,members:Array.from({length:32},function(_,i){return{id:i,name:'عضو '+(i+1),juz:0,pages:0}})};
+}
+function fa(n){return Number(n||0).toLocaleString('fa-IR')}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify(data))}catch(e){toast('ذخیره‌سازی مرورگر در دسترس نیست')}}
+function status(m){if(!m.juz)return'none';return progress(m)>=100?'done':'reading'}
+function progress(m){if(!m.juz)return 0;return Math.min(100,Math.round((Math.min(m.pages,pagesPerJuz[m.juz-1]) / pagesPerJuz[m.juz-1])*100))}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
+function render(){
+ var assigned=0,finished=0,totalPages=0;
+ data.members.forEach(function(m){if(m.juz)assigned++;if(status(m)==='done')finished++;if(m.juz)totalPages+=Math.min(m.pages,pagesPerJuz[m.juz-1])});
+ var pct=Math.min(100,Math.round(totalPages/TOTAL*100));
+ document.getElementById('globalProgress').style.width=pct+'%';
+ document.getElementById('globalPercent').textContent=fa(pct)+'٪';
+ document.getElementById('globalPages').textContent=fa(totalPages)+' از '+fa(TOTAL)+' صفحه';
+ document.getElementById('heroSub').textContent=finished===32?'🎉 ختم کامل شد؛ مبارک باشد!':fa(finished)+' نفر جزء خود را به پایان رسانده‌اند';
+ document.getElementById('assigned').textContent=fa(assigned);document.getElementById('finished').textContent=fa(finished);document.getElementById('pages').textContent=fa(totalPages);
+ var q=document.getElementById('search').value.trim().toLowerCase(),f=document.getElementById('filter').value,box=document.getElementById('members');
+ box.innerHTML='';
+ data.members.forEach(function(m){
+  if(q&&m.name.toLowerCase().indexOf(q)<0)return;
+  if(f!=='all'&&status(m)!==f)return;
+  var p=progress(m),s=status(m),label=s==='done'?'تمام‌شده':s==='reading'?'در حال مطالعه':'بدون جزء';
+  var el=document.createElement('div');el.className='member';
+  el.innerHTML='<div class="mtop"><div class="person"><div class="avatar">'+esc((m.name||'م').charAt(0))+'</div><b>'+esc(m.name)+'</b></div><span class="badge '+s+'">'+label+'</span></div>'+
+  '<div class="muted" style="margin-top:8px">'+(m.juz?'جزء '+fa(m.juz):'هنوز جزئی انتخاب نشده')+'</div>'+
+  '<div class="mini"><span style="width:'+p+'%"></span></div>'+
+  '<div class="foot"><span>'+fa(m.juz?Math.min(m.pages,pagesPerJuz[m.juz-1]):0)+' صفحه</span><b>'+fa(p)+'٪</b></div>';
+  box.appendChild(el);
+ });
+}
+function buildJuz(){
+ var grid=document.getElementById('juzGrid'),sel=document.getElementById('juz');
+ sel.innerHTML='<option value="0">بدون انتخاب</option>';
+ for(var i=1;i<=30;i++){
+  var b=document.createElement('button');b.className='juz';b.innerHTML='<b>جزء '+fa(i)+'</b><small>'+fa(pagesPerJuz[i-1])+' صفحه</small>';
+  b.onclick=(function(n){return function(){openModal();sel.value=n}})(i);grid.appendChild(b);
+  var o=document.createElement('option');o.value=i;o.textContent='جزء '+fa(i)+' — '+fa(pagesPerJuz[i-1])+' صفحه';sel.appendChild(o);
+ }
+}
+function openModal(){
+ var m=data.myId!==null?data.members[data.myId]:null;
+ document.getElementById('name').value=m?m.name:'';
+ document.getElementById('juz').value=m?m.juz:0;
+ document.getElementById('readPages').value=m?m.pages:0;
+ document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function toast(t){var x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(function(){x.style.display='none'},2200)}
+document.getElementById('edit').onclick=openModal;
+document.getElementById('close').onclick=closeModal;
+document.getElementById('modal').onclick=function(e){if(e.target===this)closeModal()};
+document.getElementById('save').onclick=function(){
+ var name=document.getElementById('name').value.trim()||'عضو جدید',j=Number(document.getElementById('juz').value)||0,p=Math.max(0,Number(document.getElementById('readPages').value)||0);
+ if(data.myId===null){
+  var id=data.members.findIndex(function(m){return !m.juz});
+  if(id<0)id=0;
+  data.myId=id;
+ }
+ data.members[data.myId]={id:data.myId,name:name,juz:j,pages:j?Math.min(p,pagesPerJuz[j-1]):0};
+ save();render();closeModal();toast('اطلاعات با موفقیت ذخیره شد');
+};
+document.getElementById('remove').onclick=function(){
+ if(data.myId!==null){var id=data.myId;data.members[id]={id:id,name:'عضو '+(id+1),juz:0,pages:0};data.myId=null;save();render();closeModal();toast('اطلاعات شما پاک شد')}
+};
+document.getElementById('search').oninput=render;document.getElementById('filter').onchange=render;
+document.getElementById('theme').onclick=function(){document.body.classList.toggle('dark');localStorage.setItem('khatm-theme',document.body.classList.contains('dark')?'dark':'light')};
+if(localStorage.getItem('khatm-theme')==='dark')document.body.classList.add('dark');
+buildJuz();render();
+})();
+</script>
+</body>
+</html>
