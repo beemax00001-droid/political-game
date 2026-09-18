@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b6b5f">
+<title>ختم قرآن کریم | مسجد امام جعفر صادق(ع)</title>
+<style>
+:root{
+ --bg:#f5f8f7;--card:#fff;--text:#14221d;--muted:#66746e;--line:#dfe8e4;
+ --brand:#087f6e;--brand2:#13b99f;--gold:#b98b32;--danger:#c62828;
+ --shadow:0 12px 35px rgba(20,50,40,.09)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;transition:.25s}
+body.dark{--bg:#09131a;--card:#111f28;--text:#eef8f4;--muted:#9db0aa;--line:#263942;--shadow:0 12px 35px rgba(0,0,0,.25)}
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
+.app{max-width:1180px;margin:auto;padding:12px}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:26px 20px;color:#fff;background:linear-gradient(135deg,#064e3b,#087f6e 55%,#12a991);box-shadow:0 20px 55px rgba(0,70,55,.22)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#fff1;animation:float 7s ease-in-out infinite}
+.hero:before{width:240px;height:240px;left:-100px;top:-120px}.hero:after{width:180px;height:180px;right:-80px;bottom:-110px;animation-delay:1.2s}
+.hero>*{position:relative;z-index:1}
+h1{font-size:clamp(25px,6vw,43px);margin:0 0 8px}
+h2,h3{margin:0 0 12px}
+p{line-height:1.8}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{grid-column:span 6;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow);animation:rise .45s ease both}
+.full{grid-column:1/-1}
+.actions,.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.actions{margin-top:17px}
+.btn{padding:10px 14px;border-radius:14px;font-weight:800;background:#ffffff22;color:#fff;transition:.18s}
+.btn:hover{transform:translateY(-2px)}.btn.primary{background:#fff;color:#075c50}.btn.dark{background:#23333b;color:#fff}.btn.green{background:#dcfce7;color:#166534}.btn.red{background:#fee2e2;color:#991b1b}.btn.gold{background:#fff7df;color:#8a641b}
+body.dark .btn.dark{background:#22333d}
+label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--text);outline:none}
+input:focus,select:focus{border-color:var(--brand2);box-shadow:0 0 0 3px #13b99f20}
+.field{flex:1;min-width:150px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{text-align:center;padding:12px;border-radius:17px;background:#edf9f5}
+body.dark .stat{background:#14312d}
+.stat b{display:block;font-size:24px;color:var(--brand2)}.stat span{font-size:12px;color:var(--muted)}
+.progress{height:12px;background:#e7eeeb;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));border-radius:99px;transition:width .65s}
+body.dark .progress{background:#25343b}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800;background:#eef2f1;color:#45524d}
+.live{background:#dcfce7;color:#166534}.done{background:#dbeafe;color:#1d4ed8}.free{background:#fff1df;color:#9a5b13}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 1.4s infinite}
+.members{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.member{border:1px solid var(--line);border-radius:18px;padding:13px;transition:.18s}.member:hover{transform:translateY(-2px)}
+.membertop{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.mini{font-size:12px;color:var(--muted)}
+.register{background:linear-gradient(135deg,#effcf8,#e9fbf4);border-color:#99e6d5}
+body.dark .register{background:#10302b;border-color:#23574e}
+.reader{background:#eee4cf;border:1px solid #d5c29d;border-radius:22px;padding:11px}
+.qpage{max-width:860px;min-height:560px;margin:auto;padding:27px 21px;background:#fffdf5;color:#17130e;border:7px double #b89955;border-radius:9px;box-shadow:0 18px 40px #0002}
+.qhead{text-align:center;font-weight:900;border-bottom:1px solid #ccb77f;padding-bottom:12px;margin-bottom:17px}
+.ayah{font-family:"Times New Roman",serif;font-size:27px;line-height:2.35;text-align:justify}
+.ayah span{cursor:pointer;padding:3px 6px;border-radius:9px;transition:.15s}.ayah span:hover,.ayah span.playing{background:#d8f2e8}
+.readerControls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:11px 0}
+.readerControls .btn{background:#23333b;color:#fff}.readerControls .accent{background:#087f6e}
+.note{text-align:center;font-size:12px;color:var(--muted)}
+.sync{padding:8px 11px;border-radius:99px;text-align:center;font-size:12px;background:#eef2f1;color:#45524d;margin:6px 0 10px}
+.sync.ok{background:#dcfce7;color:#166534}.sync.bad{background:#fee2e2;color:#991b1b}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#0009;padding:12px;z-index:30}
+.modal.show{display:flex}.modalbox{width:100%;max-width:760px;max-height:90vh;overflow:auto;background:var(--card);color:var(--text);border-radius:24px;padding:19px;box-shadow:0 25px 90px #0008}
+.adminrow{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);padding:11px;border-radius:15px;margin:8px 0}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,25px);opacity:0;pointer-events:none;background:#111827;color:#fff;padding:11px 17px;border-radius:99px;z-index:60;transition:.25s;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.celebrate{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#064e3bee;color:#fff;z-index:50;text-align:center;padding:20px}
+.celebrate.show{display:flex}.celebrate .box{animation:pop .6s ease}.big{font-size:70px}
+footer{text-align:center;color:var(--muted);padding:28px 8px}
+.hidden{display:none!important}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes float{50%{transform:translate(18px,22px) scale(1.07)}}
+@keyframes pulse{50%{box-shadow:0 0 0 6px #22c55e22}}
+@keyframes pop{0%{transform:scale(.65);opacity:0}70%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+@media(max-width:800px){.card{grid-column:1/-1}.members{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.qpage{min-height:470px;padding:20px 13px}.ayah{font-size:23px;line-height:2.25}}
+@media(max-width:450px){.app{padding:8px}.hero{padding:22px 15px}.ayah{font-size:20px;line-height:2.2}.btn{padding:9px 11px}.qpage{border-width:5px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div id="syncBadge" class="sync">حالت محلی — برای همگام‌سازی واقعی باید Supabase تنظیم شود</div>
+
+<header class="hero">
+<h1>ختم قرآن کریم</h1>
+<p>۳۰ نفر • ۳۰ جزء • تلاوت صفحه‌به‌صفحه با صوت</p>
+<div class="actions">
+<button class="btn primary" onclick="scrollToId('readerCard')">📖 تلاوت قرآن</button>
+<button class="btn" onclick="openRegister()">📝 ثبت‌نام</button>
+<button class="btn" onclick="toggleDark()">🌙 حالت شب</button>
+<button class="btn" onclick="askNotification()">🔔 اعلان</button>
+<button class="btn" onclick="admin()">🔐 پنل مدیر</button>
+</div>
+</header>
+
+<div class="grid">
+<section class="card full">
+<h2>📊 وضعیت ختم</h2>
+<div class="stats">
+<div class="stat"><b id="overall">۰٪</b><span>پیشرفت کل</span></div>
+<div class="stat"><b id="doneCount">۰</b><span>تمام‌شده</span></div>
+<div class="stat"><b id="readingCount">۰</b><span>در حال تلاوت</span></div>
+<div class="stat"><b id="freeCount">۳۰</b><span>جای خالی</span></div>
+</div>
+<div class="progress" style="margin-top:13px"><div id="overallBar" class="bar"></div></div>
+</section>
+
+<section class="card">
+<h3>👤 حساب من</h3>
+<select id="me" onchange="renderMe()"></select>
+<div id="myBox" style="margin-top:12px"></div>
+</section>
+
+<section class="card">
+<h3>👀 در حال تلاوت</h3>
+<div id="readingList"></div>
+</section>
+
+<section class="card full register">
+<h2>📝 ثبت‌نام در ختم</h2>
+<p class="mini">نام خودت را وارد کن. از ۳۰ جایگاه، یک جای خالی به تو اختصاص داده می‌شود.</p>
+<div class="row">
+<div class="field"><label>نام و نام خانوادگی</label><input id="regName" placeholder="مثلاً محمد رضایی" autocomplete="name"></div>
+<button class="btn" style="background:#087f6e;color:#fff" onclick="registerMember()">ثبت‌نام من</button>
+</div>
+</section>
+
+<section class="card full" id="readerCard">
+<h2>📖 تلاوت جزء انتخاب‌شده</h2>
+<div class="row">
+<div class="field"><label>جزء</label><select id="readerJuz" onchange="loadJuz()"></select></div>
+<div class="field"><label>قاری</label><select id="reciter">
+<option value="ar.alafasy">مشاری راشد العفاسی</option>
+<option value="ar.husary">محمود خلیل الحصری</option>
+<option value="ar.minshawi">محمد صدیق المنشاوی</option>
+<option value="ar.sudais">عبدالرحمن السدیس</option>
+<option value="ar.abdulbasit">عبدالباسط عبدالصمد</option>
+</select></div>
+</div>
+<div class="readerControls">
+<button class="btn" onclick="prevQPage()">← صفحه قبل</button>
+<button class="btn accent" onclick="playCurrentPage()">▶️ صوت صفحه</button>
+<button class="btn" onclick="stopAudio()">⏹ توقف</button>
+<button class="btn" onclick="nextQPage()">صفحه بعد →</button>
+<button class="btn gold" onclick="saveStudyPosition()">🔖 ذخیره موقعیت</button>
+</div>
+<div class="reader">
+<div class="qpage">
+<div id="pageTitle" class="qhead">یک جزء را انتخاب کنید</div>
+<div id="quranText" class="ayah">پس از انتخاب جزء، آیات همان جزء به‌صورت صفحه‌به‌صفحه نمایش داده می‌شوند.</div>
+</div>
+</div>
+<p class="note">با کلیک روی هر آیه، صوت همان آیه پخش می‌شود. موقعیت مطالعه در همین دستگاه ذخیره می‌شود.</p>
+</section>
+
+<section class="card full">
+<h2>👥 اعضای ختم</h2>
+<div id="members" class="members"></div>
+</section>
+</div>
+
+<footer>رسانه مسجد امام جعفر صادق(ع)</footer>
+</div>
+
+<div id="registerModal" class="modal"><div class="modalbox">
+<h2>📝 ثبت‌نام</h2><p class="mini">نام و نام خانوادگی خودت را وارد کن.</p>
+<input id="modalName" placeholder="نام و نام خانوادگی" autocomplete="name">
+<div class="row" style="margin-top:12px"><button class="btn" style="background:#087f6e;color:#fff" onclick="registerFromModal()">ثبت‌نام</button><button class="btn dark" onclick="closeModal('registerModal')">بستن</button></div>
+</div></div>
+
+<div id="adminModal" class="modal"><div class="modalbox">
+<div class="row" style="justify-content:space-between"><h2>🔐 پنل مدیر</h2><button class="btn dark" onclick="closeModal('adminModal')">✕</button></div>
+<div id="adminContent"></div>
+</div></div>
+
+<div id="toast" class="toast"></div>
+<div id="celebrate" class="celebrate"><div class="box"><div class="big">🎉📖✨</div><h1>ختم قرآن به پایان رسید!</h1><p>خداوند از همه شما قبول فرماید 🤍</p><button class="btn primary" onclick="closeCelebration()">الحمدلله</button></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* =========================================================
+   SUPABASE
+   فقط این دو مقدار بعداً با مقادیر پروژه خودت جایگزین می‌شوند.
+   service_role را هرگز اینجا قرار نده.
+   ========================================================= */
+const SUPABASE_URL='YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_KEY';
+
+const KEY='khatm-quran-final-v1',MAX=30;
+const blank=()=>({name:'',juz:null,pages:0,done:false,reading:false,lastSeen:null,owner:''});
+let state=loadLocal();
+let currentPages=[],currentPageIndex=0,currentJuz=null;
+let audio=new Audio(),queue=[],qIndex=-1;
+let sb=null,syncTimer=null,syncing=false,syncChannel=null;
+
+function loadLocal(){
+ try{
+  const s=JSON.parse(localStorage.getItem(KEY)||'null');
+  if(s&&Array.isArray(s.members)){
+   s.members=Array.from({length:MAX},(_,i)=>s.members[i]||blank());
+   return s;
+  }
+ }catch(e){}
+ return {dark:false,members:Array.from({length:MAX},blank),updatedAt:0};
+}
+function saveLocal(){localStorage.setItem(KEY,JSON.stringify(state))}
+function enabledSupabase(){return window.supabase && SUPABASE_URL.startsWith('http')&&!SUPABASE_URL.includes('YOUR_')&&!SUPABASE_ANON_KEY.includes('YOUR_')}
+function setSync(t,ok=true){
+ const e=document.getElementById('syncBadge');e.textContent=t;e.className='sync '+(ok?'ok':'bad');
+}
+async function initSync(){
+ if(!enabledSupabase()){setSync('حالت محلی — Supabase هنوز تنظیم نشده',false);return}
+ try{
+  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const {data,error}=await sb.from('khatm_state').select('state').eq('id',1).maybeSingle();
+  if(error)throw error;
+  if(data?.state?.members){applyRemote(data.state);render()}
+  else await pushState();
+  syncChannel=sb.channel('khatm-live')
+   .on('postgres_changes',{event:'*',schema:'public',table:'khatm_state',filter:'id=eq.1'},p=>{
+    if(p.eventType==='DELETE')return;
+    if(p.new?.state?.members){applyRemote(p.new.state);render();renderAdminIfOpen();setSync('همگام‌سازی زنده ✓',true)}
+   }).subscribe(status=>{
+    if(status==='SUBSCRIBED')setSync('همگام‌سازی زنده ✓',true);
+    else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')setSync('اتصال آنلاین قطع شد',false);
+   });
+ }catch(e){console.error(e);setSync('اتصال آنلاین برقرار نشد — حالت محلی فعال است',false)}
+}
+function applyRemote(remote){
+ state=remote;
+ state.members=Array.from({length:MAX},(_,i)=>state.members[i]||blank());
+ saveLocal();
+}
+async function pushState(){
+ if(!sb||syncing)return;
+ syncing=true;
+ try{
+  state.updatedAt=Date.now();saveLocal();
+  const clean=JSON.parse(JSON.stringify(state));
+  const {error}=await sb.from('khatm_state').upsert({id:1,state:clean,updated_at:new Date().toISOString()},{onConflict:'id'});
+  if(error)throw error;
+  setSync('همگام‌سازی زنده ✓',true);
+ }catch(e){console.error(e);setSync('ذخیره آنلاین ناموفق',false)}
+ finally{syncing=false}
+}
+function save(){
+ saveLocal();
+ clearTimeout(syncTimer);
+ syncTimer=setTimeout(pushState,300);
+}
+
+function fa(n){return String(n??'').replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d])}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.remove('show'),2400)}
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function toggleDark(){state.dark=!state.dark;save();render()}
+function registered(){return state.members.filter(m=>m.name.trim())}
+function pct(m){return m.done?100:Math.min(100,Math.round((Number(m.pages)||0)/20*100))}
+function currentOwner(){return localStorage.getItem('khatm-owner')||''}
+function setOwner(i){localStorage.setItem('khatm-owner',String(i))}
+
+function render(){
+ document.body.classList.toggle('dark',!!state.dark);
+ const me=document.getElementById('me'),old=Number(me.value||0);
+ me.innerHTML=state.members.map((m,i)=>`<option value="${i}">${fa(i+1)} - ${m.name?esc(m.name):'جای خالی'}</option>`).join('');
+ me.value=String(Math.min(Math.max(old,0),MAX-1));renderMe();
+
+ const overall=Math.round(state.members.reduce((a,m)=>a+pct(m),0)/MAX);
+ document.getElementById('overall').textContent=fa(overall)+'٪';
+ document.getElementById('overallBar').style.width=overall+'%';
+ document.getElementById('doneCount').textContent=fa(state.members.filter(m=>m.done).length);
+ document.getElementById('readingCount').textContent=fa(state.members.filter(m=>m.reading&&!m.done).length);
+ document.getElementById('freeCount').textContent=fa(MAX-registered().length);
+
+ const readers=state.members.filter(m=>m.name&&m.reading&&!m.done);
+ document.getElementById('readingList').innerHTML=readers.length?
+ readers.map(m=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span class="badge live"><i class="dot"></i> در حال تلاوت</span> <b>${esc(m.name)}</b><div class="mini">جزء ${m.juz?fa(m.juz):'—'} • ${fa(pct(m))}٪</div></div>`).join(''):
+ '<span class="mini">فعلاً کسی وضعیت «در حال تلاوت» را فعال نکرده است.</span>';
+
+ document.getElementById('members').innerHTML=state.members.map((m,i)=>`
+ <div class="member">
+  <div class="membertop"><span><b>${fa(i+1)}.</b> ${m.name?esc(m.name):'<span class="mini">جای خالی</span>'}</span>
+  ${m.done?'<span class="badge done">✓ تمام شد</span>':m.reading?'<span class="badge live"><i class="dot"></i> در حال تلاوت</span>':'<span class="badge free">آماده</span>'}</div>
+  <div class="mini" style="margin:8px 0">جزء: ${m.juz?fa(m.juz):'—'} • صفحات: ${fa(m.pages)} • پیشرفت: ${fa(pct(m))}٪</div>
+  <div class="progress"><div class="bar" style="width:${pct(m)}%"></div></div>
+ </div>`).join('');
+}
+function renderMe(){
+ const i=Number(document.getElementById('me').value||0),m=state.members[i],owner=currentOwner();
+ if(!m.name){
+  document.getElementById('myBox').innerHTML='<span class="mini">این جایگاه خالی است. از «ثبت‌نام» استفاده کن.</span>';return;
+ }
+ const mine=owner===String(i);
+ document.getElementById('myBox').innerHTML=`
+ <div class="mini">سلام ${esc(m.name)} 🌱 ${mine?'<span class="badge live">حساب من</span>':''}</div>
+ <div class="row" style="margin-top:10px">
+  <div class="field"><label>جزء من</label><select ${mine?'':'disabled'} onchange="edit(${i},'juz',this.value)">
+  <option value="">انتخاب جزء</option>${Array.from({length:30},(_,j)=>`<option value="${j+1}" ${m.juz==j+1?'selected':''}>جزء ${fa(j+1)}</option>`).join('')}</select></div>
+  <div class="field"><label>صفحات خوانده‌شده</label><input ${mine?'':'disabled'} type="number" min="0" max="20" value="${m.pages}" onchange="edit(${i},'pages',this.value)"></div>
+ </div>
+ <div class="row" style="margin-top:10px">
+ ${mine?`<button class="btn dark" onclick="edit(${i},'reading',!${m.reading})">${m.reading?'⏸ پایان تلاوت':'🟢 من دارم می‌خونم'}</button>
+ <button class="btn dark" onclick="edit(${i},'done',!${m.done})">${m.done?'↩️ بازگردانی':'✅ جزء من تمام شد'}</button>`:'<span class="mini">برای ویرایش، باید همان دستگاهی باشی که با آن ثبت‌نام کرده‌ای.</span>'}
+ </div>
+ <div style="margin-top:10px"><span class="badge ${m.done?'done':m.reading?'live':''}">${m.done?'تکمیل شده':m.reading?'در حال تلاوت':'آماده'}</span> <b>${fa(pct(m))}٪</b></div>`;
+}
+async function refreshRemote(){
+ if(!sb)return;
+ try{const {data}=await sb.from('khatm_state').select('state').eq('id',1).maybeSingle();if(data?.state?.members)applyRemote(data.state)}catch(e){}
+}
+async function edit(i,k,v){
+ const owner=currentOwner();
+ if(owner!==String(i)){toast('این جایگاه متعلق به حساب دیگری است');return}
+ if(!state.members[i].name)return;
+ if(k==='pages')v=Math.max(0,Math.min(20,Number(v)||0));
+ if(k==='juz')v=v===''?null:Number(v);
+ state.members[i][k]=v;
+ if(k==='reading'&&v)state.members[i].lastSeen=Date.now();
+ if(k==='done'&&v)state.members[i].reading=false;
+ save();render();toast('ذخیره شد');
+ if(state.members.filter(m=>m.name).length>0&&state.members.filter(m=>m.name).every(m=>m.done))document.getElementById('celebrate').classList.add('show');
+}
+function openRegister(){document.getElementById('registerModal').classList.add('show');setTimeout(()=>document.getElementById('modalName').focus(),50)}
+function registerFromModal(){register(document.getElementById('modalName').value.trim())}
+function registerMember(){register(document.getElementById('regName').value.trim())}
+async function register(n){
+ if(!n){toast('لطفاً نام خود را وارد کنید');return}
+ await refreshRemote();
+ if(state.members.some(m=>m.name.trim()===n)){toast('این نام قبلاً ثبت شده است');return}
+ const i=state.members.findIndex(m=>!m.name.trim());
+ if(i<0){toast('ظرفیت ۳۰ نفر تکمیل شده است');return}
+ state.members[i]={...blank(),name:n,owner:crypto.randomUUID?crypto.randomUUID():String(Date.now())};
+ setOwner(i);save();render();document.getElementById('me').value=String(i);renderMe();
+ closeModal('registerModal');document.getElementById('regName').value='';document.getElementById('modalName').value='';
+ toast(`خوش آمدی ${n} 🌿`);
+}
+function closeCelebration(){document.getElementById('celebrate').classList.remove('show')}
+
+function fillJuzSelect(){
+ document.getElementById('readerJuz').innerHTML='<option value="">انتخاب جزء</option>'+Array.from({length:30},(_,i)=>`<option value="${i+1}">جزء ${fa(i+1)}</option>`).join('');
+}
+async function loadJuz(){
+ const juz=Number(document.getElementById('readerJuz').value);if(!juz)return;
+ currentJuz=juz;currentPages=[];currentPageIndex=0;stopAudio();
+ document.getElementById('pageTitle').textContent=`جزء ${fa(juz)} — در حال دریافت…`;
+ document.getElementById('quranText').textContent='در حال دریافت آیات…';
+ try{
+  const res=await fetch(`https://api.alquran.cloud/v1/juz/${juz}/quran-uthmani`);
+  if(!res.ok)throw new Error('api');
+  const json=await res.json(),ayahs=json.data?.ayahs||[];
+  const map=new Map();
+  ayahs.forEach(a=>{if(!map.has(a.page))map.set(a.page,[]);map.get(a.page).push(a)});
+  currentPages=Array.from(map.entries()).map(([page,arr])=>({page,ayahs:arr}));
+  const saved=JSON.parse(localStorage.getItem('quran-position')||'null');
+  if(saved?.juz===juz)currentPageIndex=Math.min(saved.page||0,currentPages.length-1);
+  renderQuranPage();toast(`جزء ${fa(juz)} آماده شد 📖`);
+ }catch(e){
+  document.getElementById('quranText').innerHTML='<div style="text-align:center;color:#b91c1c">دریافت قرآن ممکن نشد. اینترنت را بررسی کنید.</div>';
+ }
+}
+function renderQuranPage(){
+ if(!currentPages.length)return;
+ const obj=currentPages[currentPageIndex];
+ document.getElementById('pageTitle').textContent=`جزء ${fa(currentJuz)} • صفحه ${fa(obj.page)} • ${fa(currentPageIndex+1)} از ${fa(currentPages.length)}`;
+ document.getElementById('quranText').innerHTML=obj.ayahs.map((a,i)=>`<span data-i="${i}" onclick="playAyah(${i})">${esc(a.text)} <small style="font-family:Tahoma;color:#a57d2e">﴿${fa(a.numberInSurah)}﴾</small></span>`).join(' ');
+}
+function playAyah(i){const o=currentPages[currentPageIndex];if(!o?.ayahs[i])return;queue=o.ayahs.map(a=>a.number);qIndex=i;playAudio()}
+function playCurrentPage(){const o=currentPages[currentPageIndex];if(!o)return;queue=o.ayahs.map(a=>a.number);qIndex=0;playAudio()}
+function audioUrl(num){return `https://cdn.islamic.network/quran/audio/128/${document.getElementById('reciter').value}/${String(num).padStart(6,'0')}.mp3`}
+function playAudio(){
+ if(qIndex<0||qIndex>=queue.length)return;
+ audio.src=audioUrl(queue[qIndex]);
+ audio.play().catch(()=>toast('برای پخش صوت، یک‌بار روی صفحه لمس کنید و دوباره بزنید.'));
+ document.querySelectorAll('.ayah span').forEach(x=>x.classList.remove('playing'));
+ const el=document.querySelector(`.ayah span[data-i="${qIndex}"]`);
+ if(el){el.classList.add('playing');el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+audio.onended=()=>{qIndex++;if(qIndex<queue.length)playAudio();else{document.querySelectorAll('.ayah span').forEach(x=>x.classList.remove('playing'));toast('تلاوت صفحه تمام شد 🎧')}}
+function stopAudio(){audio.pause();audio.currentTime=0;queue=[];qIndex=-1;document.querySelectorAll('.ayah span').forEach(x=>x.classList.remove('playing'))}
+function prevQPage(){if(!currentPages.length)return;currentPageIndex=Math.max(0,currentPageIndex-1);stopAudio();renderQuranPage();saveStudyPosition()}
+function nextQPage(){if(!currentPages.length)return;currentPageIndex=Math.min(currentPages.length-1,currentPageIndex+1);stopAudio();renderQuranPage();saveStudyPosition()}
+function saveStudyPosition(){
+ if(!currentPages.length)return;
+ localStorage.setItem('quran-position',JSON.stringify({juz:currentJuz,page:currentPageIndex,savedAt:Date.now()}));
+ toast('موقعیت مطالعه ذخیره شد 🔖');
+}
+
+function askNotification(){
+ if(!('Notification' in window)){toast('مرورگر شما اعلان را پشتیبانی نمی‌کند');return}
+ Notification.requestPermission().then(p=>toast(p==='granted'?'اعلان‌ها فعال شد 🔔':'اجازه اعلان داده نشد'));
+}
+function admin(){
+ const pin=prompt('رمز مدیر را وارد کنید:');
+ if(pin!=='imamjafar32'){if(pin!==null)toast('رمز مدیر نادرست است');return}
+ renderAdmin();document.getElementById('adminModal').classList.add('show')
+}
+function renderAdminIfOpen(){if(document.getElementById('adminModal').classList.contains('show'))renderAdmin()}
+function renderAdmin(){
+ const used=state.members.filter(m=>m.name),free=MAX-used.length;
+ document.getElementById('adminContent').innerHTML=`
+ <div class="stats"><div class="stat"><b>${fa(used.length)}</b><span>ثبت‌نام‌شده</span></div><div class="stat"><b>${fa(free)}</b><span>جای خالی</span></div></div>
+ <div class="row" style="margin:13px 0">
+  <button class="btn dark" onclick="adminReset()">🔄 شروع ختم جدید</button>
+  <button class="btn dark" onclick="adminAllDone()">✅ همه تمام</button>
+  <button class="btn dark" onclick="backup()">💾 پشتیبان</button>
+  <button class="btn dark" onclick="manualSync()">☁️ همگام‌سازی</button>
+ </div>
+ <h3>مدیریت اعضا</h3>
+ <p class="mini">«اخراج» اطلاعات عضو را پاک می‌کند و جایگاه او آزاد می‌شود.</p>
+ ${state.members.map((m,i)=>`<div class="adminrow"><div><b>${fa(i+1)}. ${m.name?esc(m.name):'جای خالی'}</b><div class="mini">${m.name?`جزء ${m.juz?fa(m.juz):'انتخاب نشده'} • ${fa(pct(m))}٪`:'بدون عضو'}</div></div>${m.name?`<button class="btn red" onclick="removeMember(${i})">🚫 اخراج</button>`:'<span class="badge free">خالی</span>'}</div>`).join('')}
+ <p class="mini" style="margin-top:12px">رمز فعلی مدیر در نسخه فایل: <b>imamjafar32</b></p>
+ `;
+}
+async function removeMember(i){
+ if(!state.members[i].name)return;
+ if(!confirm(`عضو «${state.members[i].name}» اخراج شود؟`))return;
+ const owner=state.members[i].owner;
+ if(currentOwner()===owner)localStorage.removeItem('khatm-owner');
+ state.members[i]=blank();save();render();renderAdmin();toast('عضو اخراج شد 🚫')
+}
+function adminReset(){
+ if(!confirm('شروع ختم جدید؟ نام اعضا باقی بماند ولی جزء، صفحات و وضعیت همه صفر شود.'))return;
+ state.members.forEach(m=>{if(m.name){m.juz=null;m.pages=0;m.done=false;m.reading=false;m.lastSeen=null}});
+ save();render();renderAdmin();toast('ختم جدید شروع شد 🔄')
+}
+function adminAllDone(){
+ if(!confirm('همه اعضای ثبت‌نام‌شده تمام‌شده علامت بخورند؟'))return;
+ state.members.forEach(m=>{if(m.name){m.done=true;m.reading=false}});
+ save();render();renderAdmin();toast('همه تمام‌شده شدند ✅')
+}
+async function manualSync(){if(!sb){toast('Supabase هنوز تنظیم نشده');return}await pushState();toast('همگام‌سازی انجام شد ☁️')}
+function backup(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+ const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='khatm-quran-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),500)
+}
+
+fillJuzSelect();render();initSync();
+</script>
+</body>
+</html>
