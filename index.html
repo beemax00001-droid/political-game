@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Google Security Monitor</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#020402;color:#00ff66;font-family:monospace}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,255,102,.025) 0 1px,transparent 1px 4px);z-index:100}
+#app{position:fixed;inset:0;padding:52px 16px 20px}
+#tabs{position:fixed;top:0;left:0;right:0;height:46px;display:flex;gap:3px;overflow:hidden;background:#070907;border-bottom:1px solid #164c2b;padding:3px;z-index:10}
+.tab{min-width:110px;background:#111611;border:1px solid #29452f;color:#b8d9c1;padding:6px;font-size:10px;white-space:nowrap;cursor:pointer}
+.tab span{color:#ff5555;margin-right:5px}
+#head{display:flex;justify-content:space-between;border-bottom:1px solid #00ff66;padding-bottom:9px;font-size:12px}
+#status{color:#ff3030}
+#terminal{direction:ltr;text-align:left;margin-top:14px;height:59vh;overflow:hidden;line-height:1.85;font-size:13px}
+.line{animation:a .12s}
+.warning{color:#ff3030;font-weight:bold;text-shadow:0 0 8px #ff3030}
+@keyframes a{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+#meter{position:fixed;left:16px;right:16px;bottom:58px;height:6px;border:1px solid #164c2b}
+#fill{height:100%;width:0;background:#00ff66;box-shadow:0 0 12px #00ff66}
+#timer{position:fixed;left:16px;bottom:17px;border:1px solid #00ff66;padding:6px 12px;background:#000}
+#counter{position:fixed;right:16px;bottom:18px;color:#6ca77c;font-size:11px}
+#start,#end{position:fixed;inset:0;background:#020402;z-index:200;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
+.box{max-width:430px;border:1px solid #00ff66;padding:28px;box-shadow:0 0 35px #003b18}
+button{font-family:monospace;background:#001b09;color:#00ff66;border:1px solid #00ff66;padding:12px 25px;font-size:14px}
+#end{display:none}
+</style>
+</head>
+<body>
+
+<div id="start">
+ <div class="box">
+  <h2>⚠ سامانه پایش امنیتی</h2>
+  <p>اتصال امنیتی مرورگر در حال بررسی است.</p>
+  <p style="color:#888;font-size:11px">برای شروع عملیات روی دکمه زیر بزنید.</p>
+  <button onclick="start()">شروع بررسی</button>
+ </div>
+</div>
+
+<div id="app">
+ <div id="tabs"></div>
+ <div id="head">
+  <span>GOOGLE SECURITY // LIVE MONITOR</span>
+  <span id="status">READY</span>
+ </div>
+ <div id="terminal"></div>
+ <div id="meter"><div id="fill"></div></div>
+ <div id="timer">03:00</div>
+ <div id="counter">تب‌های فعال: <b id="count">0</b> / 50</div>
+</div>
+
+<div id="end">
+ <div class="box">
+  <div class="warning" style="font-size:24px">⚠ هشدار امنیتی</div>
+  <br>
+  <p>عملیات نظارت امنیتی به پایان رسید.</p>
+  <p style="color:#00ff66;font-size:18px">حواسمان به آنچه که می‌کنید هست.</p>
+ </div>
+</div>
+
+<script>
+const terminal=document.getElementById("terminal");
+const tabs=document.getElementById("tabs");
+const fill=document.getElementById("fill");
+const count=document.getElementById("count");
+const timer=document.getElementById("timer");
+const status=document.getElementById("status");
+
+let active=0, seconds=180, running=false, timerId, openId;
+const names=[
+"Google Search","YouTube","Gmail","Google Maps","Google Drive",
+"Google Photos","Google Play","YouTube Music","Google News",
+"Google Translate","Chrome","GitHub","Wikipedia","Google Account"
+];
+
+function line(t,c=""){
+ const e=document.createElement("div");
+ e.className="line "+c;
+ e.textContent="> "+t;
+ terminal.appendChild(e);
+ while(terminal.children.length>18) terminal.firstChild.remove();
+}
+function vib(){
+ if(navigator.vibrate) navigator.vibrate([70,40,70]);
+}
+function addTab(){
+ if(active>=50)return;
+ active++;
+ const name=names[Math.floor(Math.random()*names.length)];
+ const tab=document.createElement("div");
+ tab.className="tab";
+ tab.innerHTML=name+' <span>×</span>';
+ tab.onclick=()=>{
+   tab.remove();
+   active--;
+   count.textContent=active;
+   fill.style.width=(active/50*100)+"%";
+   line("اتصال بسته شد: "+name,"warning");
+ };
+ tabs.appendChild(tab);
+ count.textContent=active;
+ fill.style.width=(active/50*100)+"%";
+ line("اتصال جدید: "+name+" ["+active+"/50]");
+ vib();
+}
+function start(){
+ if(running)return;
+ running=true;
+ document.getElementById("start").style.display="none";
+ status.textContent="WARNING";
+ line("سامانه امنیتی فعال شد.");
+ line("در حال بررسی فعالیت‌های مرورگر...");
+ line("هشدار: چندین اتصال هم‌زمان شناسایی شد.","warning");
+ line("کنترل نشست مرورگر در حال انجام است...");
+ openId=setInterval(()=>{
+   if(active>=50){
+     clearInterval(openId);
+     line("CRITICAL: 50 CONNECTIONS ACTIVE!","warning");
+     return;
+   }
+   addTab();
+   if(Math.random()>.55) setTimeout(addTab,180);
+ },650);
+
+ timerId=setInterval(()=>{
+   seconds--;
+   timer.textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");
+   if(seconds<=0) finish();
+ },1000);
+}
+function finish(){
+ clearInterval(openId); clearInterval(timerId);
+ running=false;
+ document.getElementById("app").style.display="none";
+ document.getElementById("end").style.display="flex";
+ vib();
+}
+</script>
+</body>
+</html>
