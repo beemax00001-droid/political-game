@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>آزمایشگاه سه‌بعدی علوم پزشکی</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap');
+:root{--glass:rgba(8,18,35,.82);--line:rgba(123,220,255,.32);--cyan:#6cecff;--green:#72ffc1;--gold:#ffd36b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07101c;color:#effaff;font-family:Vazirmatn,Tahoma,sans-serif}
+#game{position:fixed;inset:0}canvas{display:block}
+.panel{background:var(--glass);border:1px solid var(--line);border-radius:15px;backdrop-filter:blur(12px);box-shadow:0 10px 35px #0007}
+#top{position:fixed;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+#brand{padding:10px 15px;font-weight:800;color:var(--cyan);font-size:15px}
+#stats{padding:9px 13px;font-size:12px;line-height:1.9;text-align:left}
+#help{position:fixed;bottom:14px;left:14px;padding:11px 14px;font-size:12px;line-height:1.9;max-width:290px}
+#prompt{position:fixed;left:50%;top:58%;transform:translate(-50%,-50%);font-size:13px;color:#fff;background:#071522cc;padding:8px 14px;border:1px solid #6cecff88;border-radius:30px;pointer-events:none;opacity:0;transition:.15s}
+#cross{position:fixed;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);pointer-events:none}
+#cross:before,#cross:after{content:"";position:absolute;background:#d9fbff;box-shadow:0 0 5px #00d9ff}
+#cross:before{width:2px;height:12px;left:5px}#cross:after{height:2px;width:12px;top:5px}
+#start{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse at center,#14334b99,#020812ed);z-index:5}
+#start .card{max-width:560px;margin:18px;padding:28px;text-align:center}
+h1{font-size:clamp(23px,5vw,36px);margin:0 0 10px;color:var(--cyan)}
+.sub{color:#c3dce9;line-height:2;font-size:14px}
+button{font:inherit;border:1px solid #67e8ff88;background:linear-gradient(135deg,#087e9b,#125a86);color:white;padding:10px 18px;border-radius:10px;cursor:pointer}
+button:hover{filter:brightness(1.2)}.actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+#info{position:fixed;right:14px;bottom:14px;width:min(340px,calc(100vw - 28px));padding:14px;display:none}
+#info h3{margin:0 0 6px;color:var(--cyan)}#info p{font-size:13px;line-height:1.9;margin:5px 0;color:#d8eaf2}
+#info .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+#inventory{position:fixed;top:90px;right:14px;padding:10px 13px;min-width:145px;font-size:12px;display:none}
+#inventory b{color:var(--green)}#toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);padding:8px 14px;display:none;font-size:12px}
+#mobile{display:none;position:fixed;bottom:18px;left:18px;gap:8px}
+#mobile button{width:48px;height:48px;padding:0;background:#0b314dcc}
+@media(max-width:700px){#help{font-size:10px;max-width:210px}#stats{font-size:10px}#mobile{display:flex;flex-wrap:wrap;width:160px}#info{bottom:82px}}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="top"><div id="brand" class="panel">⚕ آزمایشگاه جامع سه‌بعدی علوم پزشکی</div><div id="stats" class="panel">بخش: آزمایشگاه عمومی<br>وضعیت: آماده‌سازی</div></div>
+<div id="cross"></div><div id="prompt"></div>
+<div id="help" class="panel">حرکت: <b>W A S D</b> | نگاه: ماوس<br>تعامل: <b>E</b> یا کلیک | برداشتن/گذاشتن: <b>Q</b><br>دویدن: Shift | آزادکردن ماوس: Esc<br><span style="color:#7deaff">به اشیا نزدیک شو و با آن‌ها تعامل کن.</span></div>
+<div id="inventory" class="panel">دست شما: <b id="held">خالی</b></div>
+<div id="info" class="panel"><h3 id="infoTitle">عنوان</h3><p id="infoText"></p><div class="row"><button id="takeBtn">برداشتن</button><button id="closeInfo">بستن</button></div></div>
+<div id="toast" class="panel"></div>
+<div id="mobile"><button data-move="forward">▲</button><button data-move="left">◀</button><button data-move="back">▼</button><button data-move="right">▶</button></div>
+<div id="start"><div class="card panel"><h1>آزمایشگاه پزشکی 3D</h1><div class="sub">یک محیط آموزشی سه‌بعدی بزرگ برای گشت‌وگذار، شناخت ابزارهای پزشکی، مشاهده نمونه‌ها زیر میکروسکوپ و آشنایی مقدماتی با آناتومی بدن.<br><br>برای تجربه کامل‌تر از رایانه استفاده کن. در موبایل، حرکت لمسی آزمایشی است.</div><div class="actions"><button id="enter">ورود به آزمایشگاه</button><button id="music">♫ موسیقی: خاموش</button></div><p style="font-size:11px;color:#9cb9c9;margin-top:14px">نسخه اولیه قابل توسعه — محتوای آموزشی و مدل‌های آناتومی در مراحل بعدی گسترش می‌یابند.</p></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x091827);scene.fog=new THREE.FogExp2(0x091827,.008);
+const camera=new THREE.PerspectiveCamera(74,innerWidth/innerHeight,.1,700);camera.position.set(0,1.7,17);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;$('game').appendChild(renderer.domElement);
+const hemi=new THREE.HemisphereLight(0xc6f2ff,0x182334,2.0);scene.add(hemi);
+const key=new THREE.DirectionalLight(0xfff2dc,2.3);key.position.set(-20,35,20);key.castShadow=true;key.shadow.mapSize.set(2048,2048);scene.add(key);
+const point=new THREE.PointLight(0x38cfff,35,32);point.position.set(0,5,0);scene.add(point);
+const mats={floor:new THREE.MeshStandardMaterial({color:0x263b4a,roughness:.75}),wall:new THREE.MeshStandardMaterial({color:0x1a3547,roughness:.8}),white:new THREE.MeshStandardMaterial({color:0xd9e8e9,roughness:.42}),metal:new THREE.MeshStandardMaterial({color:0x9eb6c3,metalness:.8,roughness:.25}),glass:new THREE.MeshPhysicalMaterial({color:0x8deaff,transparent:true,opacity:.25,roughness:.08,metalness:.05}),blue:new THREE.MeshStandardMaterial({color:0x167fba,metalness:.35,roughness:.35}),red:new THREE.MeshStandardMaterial({color:0xc94c62,roughness:.5}),green:new THREE.MeshStandardMaterial({color:0x35b88b,roughness:.5}),dark:new THREE.MeshStandardMaterial({color:0x101c28,roughness:.6}),gold:new THREE.MeshStandardMaterial({color:0xe7b94e,metalness:.55,roughness:.3})};
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(180,140),mats.floor);floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
+const grid=new THREE.GridHelper(180,90,0x3a7890,0x294656);grid.position.y=.012;scene.add(grid);
+function box(parent,x,y,z,w,h,d,mat,cast=true){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=cast;m.receiveShadow=true;parent.add(m);return m}
+function cyl(parent,x,y,z,r1,r2,h,mat,seg=20){const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,seg),mat);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m}
+function sphere(parent,x,y,z,r,mat,sx=1,sy=1,sz=1){const m=new THREE.Mesh(new THREE.SphereGeometry(r,18,14),mat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;parent.add(m);return m}
+function label(text,x,y,z,color='#a9efff',size=48){const c=document.createElement('canvas');c.width=1024;c.height=160;const ctx=c.getContext('2d');ctx.fillStyle='rgba(3,15,27,.8)';ctx.fillRect(0,0,1024,160);ctx.strokeStyle=color;ctx.lineWidth=5;ctx.strokeRect(5,5,1014,150);ctx.font='bold '+size+'px Vazirmatn, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.fillText(text,512,82);const tex=new THREE.CanvasTexture(c);const mesh=new THREE.Mesh(new THREE.PlaneGeometry(8,1.25),new THREE.MeshBasicMaterial({map:tex,transparent:true,side:THREE.DoubleSide}));mesh.position.set(x,y,z);scene.add(mesh);return mesh}
+function room(x,z,w,d,name,color=0x214b60){box(scene,x,3.7,z,w,.35,d,new THREE.MeshStandardMaterial({color:0x294b5b}));box(scene,x,1.8,z-d/2,w,3.6,.35,mats.wall);box(scene,x-w/2,1.8,z,w*.02,3.6,d,new THREE.MeshStandardMaterial({color}));box(scene,x+w/2,1.8,z,w*.02,3.6,d,new THREE.MeshStandardMaterial({color}));label(name,x,3.1,z-d/2+.22,'#8cecff',43)}
+// perimeter + connected lab wings
+room(0,0,32,30,'آزمایشگاه مرکزی');room(-38,0,34,30,'بخش زیست‌شناسی');room(38,0,34,30,'بخش شیمی و فرمول‌ها');room(0,-38,32,30,'مرکز آناتومی');room(0,38,32,30,'بخش میکروسکوپی');
+box(scene,0,3.7,0,112,.3,112,new THREE.MeshStandardMaterial({color:0x294b5b,side:THREE.DoubleSide}));
+for(let x=-48;x<=48;x+=16)for(let z=-48;z<=48;z+=16){if(Math.abs(x)<16&&Math.abs(z)<16)continue;const lamp=new THREE.PointLight(0x70dfff,7,17);lamp.position.set(x,3.35,z);scene.add(lamp);box(scene,x,3.48,z,3,.12,.65,new THREE.MeshBasicMaterial({color:0x8cecff}))}
+const interactables=[];
+function register(obj,name,desc,type='item',sound=440){obj.userData={name,desc,type,sound,interactable:true};interactables.push(obj);return obj}
+function cabinet(x,z){box(scene,x,1.2,z,3.3,2.4,1.2,mats.white);for(let i=0;i<3;i++){box(scene,x,0.45+i*.72,z-.63,3.15,.06,.05,mats.metal);for(let j=-1;j<=1;j++)box(scene,x+j*.9,0.45+i*.72,z-.7,.09,.12,.12,mats.gold)}}
+for(let i=0;i<7;i++){cabinet(-50+i*3.4,-9);cabinet(28+i*3.4,-9)}
+// central work benches
+for(const [x,z] of [[-7,2],[7,2],[-7,-8],[7,-8],[-45,0],[-30,0],[30,0],[45,0],[-7,42],[7,42]]){
+box(scene,x,.95,z,7,.22,2.5,mats.white);for(const dx of [-2.8,2.8])for(const dz of [-.8,.8])box(scene,x+dx,.45,z+dz,.18,.9,.18,mats.metal);
+const beaker=cyl(scene,x-1.6,1.48,z,.28,.22,.7,mats.glass,24);register(beaker,'بشر شیشه‌ای','ظرف آزمایشگاهی برای نگهداری و مخلوط‌کردن کنترل‌شده مایعات. حجم و درجه‌بندی در نسخه آموزشی بعدی اضافه می‌شود.','item',620);
+const vial=cyl(scene,x-.5,1.38,z,.13,.13,.5,mats.green,18);register(vial,'لوله نمونه','لوله نمونه برای نگهداری مقدار کمی مایع یا نمونه آزمایشگاهی.','item',720);
+const flask=sphere(scene,x+1,1.43,z,.28,mats.glass,.8,1.1,.8);register(flask,'ارلن آزمایشگاهی','ارلن برای مخلوط‌کردن محلول‌ها؛ در آزمایش واقعی از عینک و دستکش و دستور کار ایمن استفاده کنید.','item',540);
+const petri=cyl(scene,x+2.2,1.32,z,.36,.36,.12,mats.glass,28);register(petri,'پلیت کشت','ظرف پتری برای مشاهده و کشت نمونه‌های آموزشی؛ این نسخه شبیه‌سازی است.','item',800);
+}
+// microscope stations
+function microscope(x,z){const g=new THREE.Group();g.position.set(x,1.2,z);cyl(g,0,.12,0,.65,.65,.18,mats.dark);box(g,0,.45,0,.22,.6,.22,mats.metal);const arm=cyl(g,.1,.9,0,.12,.12,1.05,mats.metal);arm.rotation.z=-.35;box(g,.38,1.38,0,.8,.18,.24,mats.dark);cyl(g,.72,1.57,0,.13,.13,.45,mats.metal);box(g,0,.35,.45,.8,.12,.7,mats.blue);const lens=cyl(g,0,.55,.42,.13,.13,.2,mats.gold);scene.add(g);register(g,'میکروسکوپ نوری','برای بزرگ‌نمایی نمونه‌های بسیار کوچک استفاده می‌شود. نمونه را روی صفحه قرار دهید و از عدسی چشمی مشاهده کنید. در این نسخه با تعامل، پنجره مشاهده آموزشی باز می‌شود.','microscope',330);return g}
+microscope(-2,40);microscope(5,40);microscope(-45,-5);
+// chemistry glassware shelves and formula wall
+for(let i=0;i<5;i++){box(scene,35+i*2,2.2,-11,1.5,.12,1,mats.metal);for(let j=0;j<3;j++){const b=cyl(scene,34.5+i*2,2.55+j*.0,-11,.17,.17,.58,[mats.red,mats.green,mats.blue,mats.gold,mats.glass][i],16);register(b,['محلول قرمز','محلول سبز','محلول آبی','نمونه زرد','محلول شفاف'][i],'نمونه نمایشی رنگی؛ برای آموزش شناسایی محلول‌ها.','item',400+i*80)}}
+const board=box(scene,38,2.1,10,12,4,.18,new THREE.MeshStandardMaterial({color:0x123c3c,roughness:.9}));label('فرمول‌های دبیرستان',38,3.2,9.88,'#b9ffb2',54);
+const formulas=['فیزیک:  v = Δx / Δt','فیزیک:  F = m × a','شیمی:  n = m / M','شیمی:  C = n / V','ریاضی:  a² + b² = c²'];
+formulas.forEach((f,i)=>{const c=document.createElement('canvas');c.width=1024;c.height=120;const ctx=c.getContext('2d');ctx.font='bold 48px Vazirmatn';ctx.fillStyle='#e7ffe8';ctx.textAlign='center';ctx.fillText(f,512,78);const t=new THREE.CanvasTexture(c);const p=new THREE.Mesh(new THREE.PlaneGeometry(9,.85),new THREE.MeshBasicMaterial({map:t,transparent:true}));p.position.set(38,2.7-i*.67,9.77);scene.add(p)});
+register(board,'تابلوی فرمول‌های دبیرستان','فرمول‌های پایه فیزیک، شیمی و ریاضی روی تابلو قرار دارند. نسخه‌های بعدی می‌توانند حل مرحله‌ای و تمرین تعاملی داشته باشند.','board',250);
+// anatomy mannequin, stylized educational model
+const body=new THREE.Group();body.position.set(0,0,-38);scene.add(body);
+const skin=new THREE.MeshStandardMaterial({color:0xd99b83,roughness:.72}),organ=new THREE.MeshStandardMaterial({color:0xb83d52,roughness:.45}),vein=new THREE.MeshStandardMaterial({color:0x277bd1,roughness:.4}),bone=new THREE.MeshStandardMaterial({color:0xf1e3c5,roughness:.6});
+sphere(body,0,2.65,0,.55,skin,.8,1.35,.55);cyl(body,0,1.55,0,.38,.48,1.1,skin,24);sphere(body,0,1.15,0,.62,skin,1,.8,.5);sphere(body,0,.62,0,.5,skin,1.3,.65,.65);
+for(const s of [-1,1]){cyl(body,s*.72,1.7,0,.19,.15,1.5,skin,16).rotation.z=s*-.15;cyl(body,s*.78,.72,0,.14,.12,.65,skin,16);cyl(body,s*.3,-.2,0,.22,.16,1.1,skin,16);cyl(body,s*.32,-1.0,0,.15,.12,.9,skin,16);sphere(body,s*.32,-1.48,.08,.23,skin,1.5,.45,2)}
+// transparent cutaway torso + organs and vessels
+const cut=new THREE.MeshStandardMaterial({color:0x77d8ec,transparent:true,opacity:.23,roughness:.25,side:THREE.DoubleSide});
+const torso=sphere(body,0,1.55,.22,.56,cut,1,1.35,.7);register(torso,'قفسه سینه (نمای آموزشی)','قفسه سینه از دنده‌ها، جناغ و مهره‌های پشتی تشکیل شده و از اندام‌های مهمی مانند قلب و شش‌ها محافظت می‌کند.','anatomy',180);
+sphere(body,-.2,1.95,.45,.23,organ,1,1.2,.8);sphere(body,.2,1.95,.45,.23,organ,1,1.2,.8);sphere(body,0,1.52,.53,.19,new THREE.MeshStandardMaterial({color:0xc72d42}),1.1,.9,.8);
+const aorta=cyl(body,0,1.45,.62,.055,.045,.9,vein,12);aorta.rotation.z=.1;
+for(let s of [-1,1]){const branch=cyl(body,s*.18,1.85,.63,.035,.025,.6,vein,10);branch.rotation.z=s*.55}
+sphere(body,-.18,1.1,.43,.23,new THREE.MeshStandardMaterial({color:0x8c4d32}),1.3,.7,.7);sphere(body,.2,1.08,.43,.24,new THREE.MeshStandardMaterial({color:0x9d5a36}),1.2,.7,.7);
+const brain=sphere(body,0,3.02,.03,.32,new THREE.MeshStandardMaterial({color:0xe9a0ae}),1,.8,1);register(brain,'مغز','مغز بخشی از دستگاه عصبی مرکزی است و در پردازش اطلاعات، حرکت، حافظه و تنظیم بسیاری از عملکردهای بدن نقش دارد.','anatomy',210);
+register(body,'مدل سه‌بعدی بدن انسان','مدل آموزشی ساده‌شده برای آشنایی مقدماتی با جایگاه اندام‌ها. برای بررسی هر بخش به آن نزدیک شوید و کلیک کنید.','anatomy',150);
+// anatomy labels
+label('مدل آناتومی انسان',0,4.1,-39,'#ffd5dc',45);
+// doors / signs / extra props
+for(const [x,z,n] of [[-16,0,'زیست‌شناسی'],[16,0,'شیمی'],[0,-16,'آناتومی'],[0,16,'میکروسکوپی']]){box(scene,x,1.5,z,1.2,3,.3,mats.blue);label(n,x,2.8,z,'#d3f8ff',35)}
+// sample drawers and extra equipment
+for(let i=0;i<12;i++){const x=-52+(i%6)*4.1,z=12+Math.floor(i/6)*4;box(scene,x,1,z,2.6,2,.9,mats.white);for(let j=0;j<3;j++){box(scene,x,0.45+j*.55,z-.48,2.4,.04,.04,mats.metal);box(scene,x,0.45+j*.55,z-.56,.22,.08,.08,mats.gold)}}
+for(let i=0;i<10;i++){const x=24+(i%5)*4,z=18+Math.floor(i/5)*4;const m=box(scene,x,.7,z,1.4,1.4,1.4,[mats.blue,mats.green,mats.gold,mats.red][i%4]);register(m,'جعبه تجهیزات '+(i+1),'جعبه نگهداری ابزار و مواد آموزشی آزمایشگاه.','item',300+i*30)}
+// physics / controls
+const keys={};let yaw=0,pitch=0,locked=false,held=null,near=null,musicOn=false,audio=null,osc=null;
+camera.rotation.order='YXZ';
+function sound(freq=440,duration=.12){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.08,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration)}catch(e){}}
+function music(){audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(musicOn){if(osc){osc.stop();osc=null}musicOn=false;$('music').textContent='♫ موسیقی: خاموش';return}musicOn=true;$('music').textContent='♫ موسیقی: روشن';osc=audio.createOscillator();const gain=audio.createGain();osc.type='sine';osc.frequency.value=110;gain.gain.value=.018;osc.connect(gain);gain.connect(audio.destination);osc.start()}
+$('music').onclick=music;
+$('enter').onclick=()=>{$('start').style.display='none';renderer.domElement.requestPointerLock?.();sound(520,.18)};
+document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===renderer.domElement});
+document.addEventListener('mousemove',e=>{if(!locked)return;yaw-=e.movementX*.0022;pitch-=e.movementY*.0022;pitch=Math.max(-1.35,Math.min(1.35,pitch));camera.rotation.set(pitch,yaw,0)});
+document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyE')interact();if(e.code==='KeyQ')dropOrTake()});
+document.addEventListener('keyup',e=>keys[e.code]=false);
+renderer.domElement.addEventListener('click',()=>{if(!$('start').style.display||$('start').style.display==='none'){if(!locked)renderer.domElement.requestPointerLock?.();else interact()}});
+const ray=new THREE.Raycaster();const dir=new THREE.Vector3();
+function findNear(){camera.getWorldDirection(dir);ray.set(camera.position,dir);const hits=ray.intersectObjects(interactables,true);let found=null;for(const h of hits){let o=h.object;while(o&&!o.userData.interactable)o=o.parent;if(o&&h.distance<5){found=o;break}}return found}
+function showInfo(o){$('infoTitle').textContent=o.userData.name;$('infoText').textContent=o.userData.desc;$('info').style.display='block';$('takeBtn').style.display=['item'].includes(o.userData.type)?'inline-block':'none';$('takeBtn').onclick=()=>{held=o;scene.attach(o);o.position.set(0,-.25,-1.15);o.rotation.set(0,0,0);o.scale.setScalar(.55);$('held').textContent=o.userData.name;$('inventory').style.display='block';$('info').style.display='none';sound(o.userData.sound,.16);toast('وسیله برداشته شد؛ برای گذاشتن Q را بزن.')}}
+function interact(){if(!near)return;const o=near;sound(o.userData.sound||440);if(o.userData.type==='microscope'){showInfo(o);$('infoText').textContent+='\\n\\nنمای میکروسکوپی: نمونه فرضی شامل سلول‌های آموزشی را در ذهن تصور کنید. بزرگ‌نمایی و اسلایدهای واقعی در به‌روزرسانی بعدی افزوده می‌شوند.';return}showInfo(o)}
+function dropOrTake(){if(held){const obj=held;scene.attach(obj);obj.position.copy(camera.position).add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(2));obj.position.y=Math.max(.3,obj.position.y);obj.scale.setScalar(1);held=null;$('held').textContent='خالی';sound(190,.2);toast('وسیله روی زمین قرار گرفت.');return}if(near&&near.userData.type==='item')showInfo(near)}
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
+$('closeInfo').onclick=()=>$('info').style.display='none';
+const clock=new THREE.Clock();
+function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04);near=findNear();$('prompt').style.opacity=near?'1':'0';$('prompt').textContent=near?'E / کلیک — '+near.userData.name:'';if(locked){const speed=(keys.ShiftLeft?9:5)*dt;const forward=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw));const right=new THREE.Vector3(Math.cos(yaw),0,-Math.sin(yaw));if(keys.KeyW)camera.position.addScaledVector(forward,speed);if(keys.KeyS)camera.position.addScaledVector(forward,-speed);if(keys.KeyA)camera.position.addScaledVector(right,-speed);if(keys.KeyD)camera.position.addScaledVector(right,speed);camera.position.x=THREE.MathUtils.clamp(camera.position.x,-58,58);camera.position.z=THREE.MathUtils.clamp(camera.position.z,-58,58);camera.position.y=1.7}
+if(held){const p=new THREE.Vector3(0,-.25,-1.1).applyQuaternion(camera.quaternion).add(camera.position);held.position.lerp(p,.35);held.quaternion.copy(camera.quaternion)}
+renderer.render(scene,camera)}
+animate();
+$('mobile').querySelectorAll('button').forEach(b=>{const k={forward:'KeyW',back:'KeyS',left:'KeyA',right:'KeyD'}[b.dataset.move];b.addEventListener('touchstart',e=>{e.preventDefault();keys[k]=true});['touchend','touchcancel'].forEach(ev=>b.addEventListener(ev,()=>keys[k]=false))});
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+})();
+</script>
+</body>
+</html>
