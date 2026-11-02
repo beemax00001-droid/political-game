@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f7">
+  <title>یه گپ کوچولو؟ 🎀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="float-layer" aria-hidden="true">
+    <span class="float f1">✦</span><span class="float f2">♡</span><span class="float f3">✿</span>
+    <span class="float f4">✧</span><span class="float f5">♥</span><span class="float f6">⋆</span>
+  </div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">t.</span><span>یه پیام کوچولو</span></div>
+      <div class="top-tag"><i></i> فقط برای تو</div>
+    </header>
+
+    <section class="screen active" id="welcome">
+      <div class="hero-sticker" aria-hidden="true">
+        <span class="orbit orbit-a">✦</span><span class="orbit orbit-b">♡</span>
+        <div class="sticker-face">૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა</div>
+        <span class="mini-spark s-a">✧</span><span class="mini-spark s-b">✿</span>
+      </div>
+      <div class="eyebrow"><span></span> یک سؤال خیلی مهم <span></span></div>
+      <h1>حرف بزنیم؟</h1>
+      <p class="intro">یه گفت‌وگوی کوچولو، بدون عجله و بدون هیچ اجباری :)</p>
+
+      <div class="choice-stage" id="choiceStage">
+        <button class="choice yes-choice" id="yesBtn" type="button">
+          <span class="btn-icon">♡</span><span>آره، بزن بریم!</span><span class="btn-arrow">↗</span>
+        </button>
+        <button class="choice no-choice" id="noBtn" type="button">
+          <span class="btn-icon">☁</span><span>نه</span>
+        </button>
+      </div>
+      <p class="hint" id="hint">قول می‌دم فضای اینجا پر از انرژی خوب باشه 🎀</p>
+      <div class="counter" id="counter" aria-live="polite">فرصت‌های فرارِ «نه»: <b>۰</b> از ۱۰</div>
+      <div class="tiny-note">هر جوابی بدی محترمه؛ این فقط یه دعوت دوستانه‌ست.</div>
+    </section>
+
+    <section class="screen" id="schedule">
+      <button class="back-link" id="backBtn" type="button">→ برگشت</button>
+      <div class="section-kicker">خب پس بریم سراغ زمانش ✨</div>
+      <div class="schedule-art">🕰️<span>✦</span></div>
+      <h2>کی گپ بزنیم؟</h2>
+      <p class="intro">اگه امشب سرت شلوغه، می‌تونیم بذاریم برای فردا.</p>
+      <div class="schedule-grid">
+        <button class="time-card" data-time="فردا ظهر"><span class="time-emoji">☀️</span><strong>فردا ظهر</strong><small>یه گپ وسط روز</small><i>↗</i></button>
+        <button class="time-card" data-time="فردا شب"><span class="time-emoji">🌙</span><strong>فردا شب</strong><small>آروم و بی‌عجله</small><i>↗</i></button>
+        <button class="time-card wide" data-time="هر وقت فرصت شد"><span class="time-emoji">🫧</span><strong>هر وقت فرصت شد</strong><small>خودت هر زمان راحت بودی</small><i>↗</i></button>
+      </div>
+      <p class="schedule-foot">هیچ عجله‌ای نیست؛ زمانش با خودته.</p>
+    </section>
+
+    <section class="screen" id="done">
+      <div class="confetti-zone" aria-hidden="true"></div>
+      <div class="done-burst">✦ ✧ ♡ ✧ ✦</div>
+      <div class="cat-frame"><img src="assets/cat-sticker.jpg" alt="استیکر گربه‌ی بامزه"></div>
+      <div class="cat-speech">منمووووننننن! 🥹</div>
+      <h2>پس قرارمون ثبت شد!</h2>
+      <p class="intro" id="chosenText">منتظر یه گپ خوب می‌مونیم.</p>
+      <div class="done-stamp">با مهر و کلی انرژی خوب <span>🎀</span></div>
+      <button class="telegram-btn" id="telegramBtn" type="button"><span>↗</span> فرستادن نتیجه در تلگرام</button>
+      <button class="exit-link" id="exitBtn" type="button">خروج</button>
+      <p class="telegram-note">تلگرام باز می‌شه و متن آماده‌ست؛ برای ارسال، فقط دکمه‌ی ارسال رو بزن.</p>
+    </section>
+
+    <section class="screen" id="thanks">
+      <div class="thanks-icon">♡</div>
+      <div class="eyebrow">ممنون که گفتی</div>
+      <h2>ممنون که صادقانه جواب دادی</h2>
+      <p class="thanks-copy">و با عدالت طاهایی راه اومدی 🎀</p>
+      <div class="thanks-decoration">✿　✧　♡　✧　✿</div>
+      <button class="close-btn" id="closeBtn" type="button">بستن صفحه</button>
+    </section>
+
+    <footer><span>made with</span> <b>♥</b> <span>و کمی شیطنت</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
